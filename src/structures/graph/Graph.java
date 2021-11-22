@@ -52,12 +52,11 @@ public class Graph<E> {
 	}
 
 	//@Override
-	public void BFS(Vertex<E> s) {
+	public void bfs(Vertex<E> s) {
 		for (int i = 0; i < getVertex().size(); i++) {
-			Vertex<E> u = getVertex().get(i);
-			u.setColor(Colors.WHITE);
-			u.setDistance(Integer.MAX_VALUE);
-			u.setPredecessor(null);
+			getVertex().get(i).setColor(Colors.WHITE);
+			getVertex().get(i).setDistance(Integer.MAX_VALUE);
+			getVertex().get(i).setPredecessor(null);
 		}
 
 		s.setColor(Colors.GRAY);
@@ -81,14 +80,43 @@ public class Graph<E> {
 					}
 				}
 			}
-			
+
 			u.setColor(Colors.BLACK);
 		}
 	}
 
 	//@Override
-	public void DFS() {
+	public void dfs() {
+		for (int i = 0; i < getVertex().size(); i++) {
+			getVertex().get(i).setColor(Colors.WHITE);
+			getVertex().get(i).setPredecessor(null);
+		}
+		for (int i = 0; i < getVertex().size(); i++) {
+			if(getVertex().get(i).getColor().equals(Colors.WHITE)) {
+				dfsVisit(getVertex().get(i),0);
+			}
+		}
+	}
 
+	public int dfsVisit(Vertex<E> u, int time){
+		time = time + 1;
+		u.getTimestamps().setFirst(time);
+		u.setColor(Colors.GRAY);
+		ArrayList<Integer> edge = edges.get(u.getId());
+		for (int i = 0; i < edge.size(); i++) {
+			if(edge.get(i) != Integer.MAX_VALUE && i != u.getId()) {
+				Vertex<E> v = getVertex().get(i);
+				if(v.getColor() == Colors.WHITE) {
+					v.setPredecessor(u);
+					time = dfsVisit(v, time);
+				}
+			}
+		}
+
+		u.setColor(Colors.BLACK);
+		time = time + 1;
+		u.getTimestamps().setSecond(time);
+		return time;
 	}
 
 }

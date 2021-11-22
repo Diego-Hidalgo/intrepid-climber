@@ -6,14 +6,16 @@ public class Vertex<E>  {
 	private int id;
 	private int distance;
 	private Colors color;
+	private Connects<Integer, Integer> timestamps;
 	private Vertex<E> predecessor;
 
 
-	public Vertex(E value, int id, int distance) {
+	public Vertex(E value, int id) {
 		this.value = value;
 		this.id = id;
-		this.distance = distance;
+		this.distance = 0;
 		color = null;
+		timestamps = new Connects<Integer, Integer>(null, null);
 		predecessor = null;
 	}
 
@@ -55,6 +57,16 @@ public class Vertex<E>  {
 
 	public void setColor(Colors color) {
 		this.color = color;
+	}
+
+
+	public Connects<Integer, Integer> getTimestamps() {
+		return timestamps;
+	}
+
+
+	public void setTimestamps(Connects<Integer, Integer> timestamps) {
+		this.timestamps = timestamps;
 	}
 
 
