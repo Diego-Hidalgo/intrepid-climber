@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Graph<E> {
+public class Graph<E> implements GraphInterface<E> {
 
 	private ArrayList<Vertex<E>> vertex;
 	private  ArrayList <ArrayList<Integer>> edges;
@@ -41,17 +41,25 @@ public class Graph<E> {
 		return found;
 	}
 
-	//@Override
+	@Override
 	public void insertVertex(E value) {
-		//FALTA
+		Vertex<E> newVertex = new Vertex<E>(value, getVertex().size());
+		getVertex().add(newVertex);
+		edges.add(new ArrayList<Integer>());
+
+		for (int i = 0; i < edges.size()-1; i++) {
+			edges.get(i).add(Integer.MAX_VALUE);
+			edges.get(edges.size()-1).add(Integer.MAX_VALUE);
+		}
+		edges.get(edges.size()-1).add(0);
 	}
 
-	//@Override
+	@Override
 	public void insertEdge(Vertex<E> vertex1, Vertex<E> vertex2, int weight) {
 		//FALTA
 	}
 
-	//@Override
+	@Override
 	public void bfs(Vertex<E> s) {
 		for (int i = 0; i < getVertex().size(); i++) {
 			getVertex().get(i).setColor(Colors.WHITE);
@@ -85,7 +93,7 @@ public class Graph<E> {
 		}
 	}
 
-	//@Override
+	@Override
 	public void dfs() {
 		for (int i = 0; i < getVertex().size(); i++) {
 			getVertex().get(i).setColor(Colors.WHITE);
@@ -119,4 +127,23 @@ public class Graph<E> {
 		return time;
 	}
 
+	@Override
+	public void dijkstra() {
+
+	}
+
+	@Override
+	public void floyd() {
+
+	}
+
+	@Override
+	public void prim() {
+
+	}
+
+	@Override
+	public void kruskal() {
+
+	}
 }
