@@ -1,35 +1,29 @@
 package structures.graph;
 
-public class TimeStamp<U, V> {
+public class TimeStamp {
 
-	private U first;
-	private V second;
+	private int start;
+	private int end;
 
-
-	public TimeStamp(U first, V second) {
-		super();
-		this.first = first;
-		this.second = second;
+	public TimeStamp() {
+		start = 0;
+		end = 0;
 	}
 
-
-	public U getFirst() {
-		return first;
+	public int getStart() {
+		return start;
 	}
 
-
-	public void setFirst(U first) {
-		this.first = first;
+	public void setStart(int start) {
+		this.start = start;
 	}
 
-
-	public V getSecond() {
-		return second;
+	public int getEnd() {
+		return end;
 	}
 
-
-	public void setSecond(V second) {
-		this.second = second;
+	public void setEnd(int end) {
+		this.end = end;
 	}
 
 }

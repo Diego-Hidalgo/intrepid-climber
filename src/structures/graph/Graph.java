@@ -1,148 +1,167 @@
 package structures.graph;
 
+import structures.queue.Queue;
+import structures.queue.QueueException;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.List;
 
-public class Graph<E> implements GraphInterface<E> {
+public class Graph<T extends Comparable<T>> implements GraphInterface<T> {
 
-	private ArrayList<Vertex<E>> vertex;
-	private  ArrayList <ArrayList<Integer>> edges;
+	private List<Vertex<T>> vertices;
+	private int size;
+	private int time;
 
 	public Graph() {
-		super();
-		setVertex(new ArrayList<Vertex<E>>());
-		edges = new ArrayList<ArrayList<Integer>>();
-	}
-
-	public ArrayList<Vertex<E>> getVertex() {
-		return vertex;
-	}
-
-	public void setVertex(ArrayList<Vertex<E>> vertex) {
-		this.vertex = vertex;
-	}
-
-	public ArrayList <ArrayList<Integer>> getEdges() {
-		return edges;
-	}
-
-	public void setEdges(ArrayList <ArrayList<Integer>> edges) {
-		this.edges = edges;
-	}
-
-	public boolean containsValue(E e) {
-		boolean found = false;
-		for (int i = 0; i < vertex.size() && !found; i++) {
-			if(vertex.get(i).getValue().equals(e)) {
-				found = true;
-			}
-		}
-		return found;
+		vertices = new ArrayList<>();
+		size = 0;
+		time = 0;
 	}
 
 	@Override
-	public void insertVertex(E value) {
-		Vertex<E> newVertex = new Vertex<E>(value, getVertex().size());
-		getVertex().add(newVertex);
-		edges.add(new ArrayList<Integer>());
+	public int size() {
+		return size;
+	}
 
-		for (int i = 0; i < edges.size()-1; i++) {
-			edges.get(i).add(Integer.MAX_VALUE);
-			edges.get(edges.size()-1).add(Integer.MAX_VALUE);
+
+	@Override
+	public boolean contains(T t) {
+		for(int i = 0; i < size; i ++) {
+			if(vertices.get(i).value() == t)
+				return true;
 		}
-		edges.get(edges.size()-1).add(0);
+		return false;
 	}
 
 	@Override
-	public void deleteVertex(Vertex<E> v) {
-		vertex.remove(v.getId());
-		edges.remove(v.getId());
-		for (int i = 0; i < vertex.size(); i++) {
-			if(vertex.get(i).getId() > v.getId()) {
-				vertex.get(i).setId(vertex.get(i).getId() - 1);
-			}
-			
-			edges.get(i).remove(v.getId());
+	public void insert(T t) {
+		if(!contains(t)) {
+			vertices.add(new Vertex<T>(t));
+			++ size;
 		}
-	}
-	
-	@Override
-	public void insertEdge(Vertex<E> vertex1, Vertex<E> vertex2, int weight) {
-		edges.get(vertex1.getId()).set(vertex2.getId(), weight);
-		edges.get(vertex1.getId()).set(vertex2.getId(), weight);
 	}
 
 	@Override
-	public void bfs(Vertex<E> s) {
-		for (int i = 0; i < getVertex().size(); i++) {
-			getVertex().get(i).setColor(Color.WHITE);
-			getVertex().get(i).setDistance(Integer.MAX_VALUE);
-			getVertex().get(i).setPredecessor(null);
-		}
+	public void insert(List<T> ts) {
+		for (T t : ts)
+			insert(t);
+	}
 
+	private Vertex<T> getVertexByValue(T t) {
+		for(int i = 0; i < size; i ++) {
+			Vertex<T> current = vertices.get(i);
+			if(current.value() == t)
+				return current;
+		}
+		return null;
+	}
+
+	@Override
+	public void insert(T t, List<T> adjacent, List<Integer> weights) {
+		if(adjacent.size() != weights.size())
+			return;
+		insert(t);
+		insert(adjacent);
+		Vertex<T> u = getVertexByValue(t);
+		for(int i = 0; i < adjacent.size(); i ++) {
+			Vertex<T> v = getVertexByValue(adjacent.get(i));
+			int w = weights.get(i);
+			u.link(v, w);
+			v.link(u, w);
+		}
+	}
+
+	@Override
+	public void remove(T t) {
+		Vertex<T> u = getVertexByValue(t);
+		if(u == null)
+			return;
+		vertices.remove(u);
+		for(Vertex<T> v : vertices) {
+			List<Vertex<T>> adj = v.getAdjacent();
+			List<Integer> w = v.getWeights();
+			int i = adj.indexOf(u);
+			adj.remove(u);
+			w.remove(i);
+		}
+	}
+
+	@Override
+	public void bfs(T t) {
+		Vertex<T> s = getVertexByValue(t);
+		if(s == null)
+			return;
+		for(Vertex<T> u : vertices) {
+			u.setColor(Color.WHITE);
+			u.setKey(Integer.MAX_VALUE);
+			u.setPredecessor(null);
+		}
 		s.setColor(Color.GRAY);
-		s.setDistance(0);
-		s.setPredecessor(null);
-
-		Queue<Vertex<E>> q = new LinkedList<Vertex<E>>();
-		q.add(s);
-
-		while(!q.isEmpty()) {
-			Vertex<E> u = q.poll();
-			ArrayList<Integer> edge = edges.get(u.getId());
-			for (int i = 0; i < edge.size(); i++) {
-				if(edge.get(i) != Integer.MAX_VALUE && i != u.getId()) {
-					Vertex<E> v = getVertex().get(i);
+		s.setKey(0);
+		Queue<Vertex<T>> queue = new Queue<>();
+		queue.enqueue(s);
+		while(!queue.isEmpty()) {
+			try {
+				Vertex<T> u = queue.dequeue();
+				for(Vertex<T> v : u.getAdjacent()) {
 					if(v.getColor() == Color.WHITE) {
 						v.setColor(Color.GRAY);
-						v.setDistance(u.getDistance()+1);
-						v.setPredecessor(u);
-						q.add(v);
+						v.setKey(u.getKey() + 1);
+						v.setPredecessor(u.value());
+						queue.enqueue(v);
 					}
 				}
-			}
-
-			u.setColor(Color.BLACK);
+				u.setColor(Color.BLACK);
+			} catch (QueueException ignored) {}
 		}
 	}
 
 	@Override
 	public void dfs() {
-		for (int i = 0; i < getVertex().size(); i++) {
-			getVertex().get(i).setColor(Color.WHITE);
-			getVertex().get(i).setPredecessor(null);
+		for(Vertex<T> u : vertices) {
+			u.setColor(Color.WHITE);
+			u.setPredecessor(null);
 		}
-		for (int i = 0; i < getVertex().size(); i++) {
-			if(getVertex().get(i).getColor().equals(Color.WHITE)) {
-				dfsVisit(getVertex().get(i),0);
-			}
+		time = 0;
+		for(Vertex<T> u : vertices) {
+			if(u.getColor() == Color.WHITE)
+				dfsVisit(u);
 		}
 	}
 
-	public int dfsVisit(Vertex<E> u, int time){
-		time = time + 1;
-		u.getTimestamps().setFirst(time);
+	private void dfsVisit(Vertex<T> u) {
+		u.setStart(++ time);
 		u.setColor(Color.GRAY);
-		ArrayList<Integer> edge = edges.get(u.getId());
-		for (int i = 0; i < edge.size(); i++) {
-			if(edge.get(i) != Integer.MAX_VALUE && i != u.getId()) {
-				Vertex<E> v = getVertex().get(i);
-				if(v.getColor() == Color.WHITE) {
-					v.setPredecessor(u);
-					time = dfsVisit(v, time);
-				}
+		for(Vertex<T> v : u.getAdjacent()) {
+			if(v.getColor() == Color.WHITE) {
+				v.setPredecessor(u.value());
+				dfsVisit(v);
 			}
 		}
-
 		u.setColor(Color.BLACK);
-		time = time + 1;
-		u.getTimestamps().setSecond(time);
-		return time;
+		u.setEnd(++ time);
+	}
+
+	private int weight(Vertex<T> u, Vertex<T> v) {
+		return u.weight(v);
+	}
+
+	private void initializeSingleSource(Vertex<T> s) {
+		for(Vertex<T> v : vertices) {
+			v.setKey(Integer.MAX_VALUE);
+			v.setPredecessor(null);
+		}
+		s.setKey(0);
+	}
+
+	private void relax(Vertex<T> u, Vertex<T> v) {
+		if(v.getKey() > u.getKey() + weight(u, v)) {
+			v.setKey(u.getKey() + weight(u, v));
+			v.setPredecessor(u.value());
+		}
 	}
 
 	@Override
-	public void dijkstra() {
+	public void dijkstra(T t) {
 
 	}
 
@@ -160,4 +179,5 @@ public class Graph<E> implements GraphInterface<E> {
 	public void kruskal() {
 
 	}
+
 }

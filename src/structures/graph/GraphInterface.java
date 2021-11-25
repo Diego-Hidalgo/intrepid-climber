@@ -1,14 +1,32 @@
 package structures.graph;
 
-public interface GraphInterface<E> {
+import java.util.List;
 
-	public void insertVertex(E value);
-	public void deleteVertex(Vertex<E> vertex);
-	public void insertEdge(Vertex<E> vertex1, Vertex<E> vertex2, int weight);
-	public void bfs(Vertex<E> s);
-	public void dfs();
-	public void dijkstra();
-	public void floyd();
-	public void prim();
-	public void kruskal();
+public interface GraphInterface<T> {
+
+	int size();
+
+	boolean contains(T t);
+
+	void insert(T t);
+
+	void insert(List<T> ts);
+
+	void insert(T t, List<T> adjacent, List<Integer> weights);
+
+	void remove(T t);
+
+	void bfs(T t);
+
+	void dfs();
+
+	void dijkstra(T t);
+
+	void floyd();
+
+	void prim();
+
+	void kruskal();
+
+
 }
