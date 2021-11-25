@@ -56,6 +56,16 @@ public class Graph<T extends Comparable<T>> implements GraphInterface<T> {
 	}
 
 	@Override
+	public void insert(T t, T v, int w) {
+		insert(t);
+		insert(v);
+		Vertex<T> tV = getVertexByValue(t);
+		Vertex<T> vV = getVertexByValue(v);
+		tV.link(vV, w);
+		vV.link(tV, w);
+	}
+
+	@Override
 	public void insert(T t, List<T> adjacent, List<Integer> weights) {
 		if(adjacent.size() != weights.size())
 			return;
@@ -185,7 +195,7 @@ public class Graph<T extends Comparable<T>> implements GraphInterface<T> {
 	public String toString() {
 		String msg = "";
 		for(Vertex<T> v : vertices) {
-			msg += v + " :\n" + v.toString();
+			msg += v.value() + " :\n" + v.toString();
 		}
 		return msg;
 	}

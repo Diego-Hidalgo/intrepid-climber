@@ -12,6 +12,8 @@ public interface GraphInterface<T> {
 
 	void insert(List<T> ts);
 
+	void insert(T t, T v, int w);
+
 	void insert(T t, List<T> adjacent, List<Integer> weights);
 
 	void remove(T t);
