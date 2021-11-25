@@ -83,6 +83,7 @@ public class Graph<T extends Comparable<T>> implements GraphInterface<T> {
 			adj.remove(u);
 			w.remove(i);
 		}
+		-- size;
 	}
 
 	@Override
