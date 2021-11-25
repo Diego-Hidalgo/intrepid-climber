@@ -55,8 +55,22 @@ public class Graph<E> implements GraphInterface<E> {
 	}
 
 	@Override
+	public void deleteVertex(Vertex<E> v) {
+		vertex.remove(v.getId());
+		edges.remove(v.getId());
+		for (int i = 0; i < vertex.size(); i++) {
+			if(vertex.get(i).getId() > v.getId()) {
+				vertex.get(i).setId(vertex.get(i).getId() - 1);
+			}
+			
+			edges.get(i).remove(v.getId());
+		}
+	}
+	
+	@Override
 	public void insertEdge(Vertex<E> vertex1, Vertex<E> vertex2, int weight) {
-		//FALTA
+		edges.get(vertex1.getId()).set(vertex2.getId(), weight);
+		edges.get(vertex1.getId()).set(vertex2.getId(), weight);
 	}
 
 	@Override
