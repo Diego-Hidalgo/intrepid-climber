@@ -1,6 +1,6 @@
 package structures.queue;
 
-import node.Node;
+import structures.node.Node;
 
 public class Queue<E> implements QueueInterface<E> {
 
