@@ -1,5 +1,5 @@
 package structures.adjList;
 
-public class AdjList {
+public class AdjList implements AdjListInterface{
 
 }
