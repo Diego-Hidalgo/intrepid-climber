@@ -1,12 +1,12 @@
 package structures.graph;
 
-public class Connects<U, V> {
+public class TimeStamp<U, V> {
 
 	private U first;
 	private V second;
 
 
-	public Connects(U first, V second) {
+	public TimeStamp(U first, V second) {
 		super();
 		this.first = first;
 		this.second = second;

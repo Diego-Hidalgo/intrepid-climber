@@ -6,7 +6,7 @@ public class Vertex<E>  {
 	private int id;
 	private int distance;
 	private Color color;
-	private Connects<Integer, Integer> timestamps;
+	private TimeStamp<Integer, Integer> timestamps;
 	private Vertex<E> predecessor;
 
 
@@ -15,7 +15,7 @@ public class Vertex<E>  {
 		this.id = id;
 		this.distance = 0;
 		color = null;
-		timestamps = new Connects<Integer, Integer>(null, null);
+		timestamps = new TimeStamp<Integer, Integer>(null, null);
 		predecessor = null;
 	}
 
@@ -60,12 +60,12 @@ public class Vertex<E>  {
 	}
 
 
-	public Connects<Integer, Integer> getTimestamps() {
+	public TimeStamp<Integer, Integer> getTimestamps() {
 		return timestamps;
 	}
 
 
-	public void setTimestamps(Connects<Integer, Integer> timestamps) {
+	public void setTimestamps(TimeStamp<Integer, Integer> timestamps) {
 		this.timestamps = timestamps;
 	}
 
