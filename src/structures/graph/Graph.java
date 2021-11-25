@@ -186,8 +186,16 @@ public class Graph<T extends Comparable<T>> implements GraphInterface<T> {
 	}
 
 	@Override
-	public void prim() {
-
+	public void prim(T t) {
+		Vertex<T> r = getVertexByValue(t);
+		if(r == null)
+			return;
+		for(Vertex<T> u : vertices) {
+			u.setKey(Integer.MAX_VALUE);
+			u.setColor(Color.WHITE);
+		}
+		r.setKey(0);
+		r.setPredecessor(null);
 	}
 
 	@Override

@@ -26,7 +26,7 @@ public interface GraphInterface<T> {
 
 	void floyd();
 
-	void prim();
+	void prim(T t);
 
 	void kruskal();
 
