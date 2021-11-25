@@ -131,11 +131,14 @@ public class Graph<T extends Comparable<T>> implements GraphInterface<T> {
 		for(Vertex<T> u : vertices) {
 			u.setColor(Color.WHITE);
 			u.setPredecessor(null);
+			u.setKey(Integer.MAX_VALUE);
 		}
 		time = 0;
 		for(Vertex<T> u : vertices) {
-			if(u.getColor() == Color.WHITE)
+			if(u.getColor() == Color.WHITE) {
+				u.setKey(0);
 				dfsVisit(u);
+			}
 		}
 	}
 
@@ -145,6 +148,7 @@ public class Graph<T extends Comparable<T>> implements GraphInterface<T> {
 		for(Vertex<T> v : u.getAdjacent()) {
 			if(v.getColor() == Color.WHITE) {
 				v.setPredecessor(u.value());
+				v.setKey(u.getKey() + 1);
 				dfsVisit(v);
 			}
 		}
@@ -195,7 +199,12 @@ public class Graph<T extends Comparable<T>> implements GraphInterface<T> {
 	public String toString() {
 		String msg = "";
 		for(Vertex<T> v : vertices) {
-			msg += v.value() + " :\n" + v.toString();
+			msg += v.value() + " :"
+					+ "\nPredecessor: " + v.getPredecessor()
+					+ "\nstart: " + v.start()
+					+ "\nend: " + v.end()
+					+ "\nkey: " + v.getKey()
+					+ "\n" + v.toString();
 		}
 		return msg;
 	}
