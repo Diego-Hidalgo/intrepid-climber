@@ -177,7 +177,17 @@ public class Graph<T extends Comparable<T>> implements GraphInterface<T> {
 
 	@Override
 	public void dijkstra(T t) {
-
+		Vertex<T> source = getVertexByValue(t);
+		if(source == null)
+			return;
+		initializeSingleSource(source);
+		List<Vertex<T>> shortest = new ArrayList<>();
+		while(true) {
+			Vertex<T> u = null;
+			shortest.add(u);
+			for(Vertex<T> v : u.getAdjacent())
+				relax(u, v);
+		}
 	}
 
 	@Override
