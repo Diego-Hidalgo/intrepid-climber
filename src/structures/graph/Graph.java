@@ -1,11 +1,8 @@
 package structures.graph;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
-public class Graph<T extends Comparable<T>> implements GraphInterface<T> {
+public class Graph<T> implements GraphInterface<T> {
 
 	private List<Vertex<T>> vertices;
 	private int size;
@@ -167,6 +164,8 @@ public class Graph<T extends Comparable<T>> implements GraphInterface<T> {
 	}
 
 	private void relax(Vertex<T> u, Vertex<T> v) {
+		if(u.getKey() == Integer.MAX_VALUE)
+			return;
 		if(v.getKey() > u.getKey() + weight(u, v)) {
 			v.setKey(u.getKey() + weight(u, v));
 			v.setPredecessor(u.value());
@@ -180,8 +179,9 @@ public class Graph<T extends Comparable<T>> implements GraphInterface<T> {
 			return;
 		initializeSingleSource(source);
 		List<Vertex<T>> shortest = new ArrayList<>();
-		while(true) {
-			Vertex<T> u = null;
+		PriorityQueue<Vertex<T>> queue = new PriorityQueue<>(vertices);
+		while(!queue.isEmpty()) {
+			Vertex<T> u = queue.poll();
 			shortest.add(u);
 			for(Vertex<T> v : u.getAdjacent())
 				relax(u, v);

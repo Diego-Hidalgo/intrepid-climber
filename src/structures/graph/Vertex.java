@@ -3,7 +3,7 @@ package structures.graph;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Vertex<T extends Comparable<T>> implements Comparable<Vertex<T>> {
+public class Vertex<T> implements Comparable<Vertex<T>> {
 
 	private T value;
 	private List<Vertex<T>> adjacent;
@@ -105,7 +105,7 @@ public class Vertex<T extends Comparable<T>> implements Comparable<Vertex<T>> {
 
 	@Override
 	public int compareTo(Vertex<T> o) {
-		return value.compareTo(o.value());
+		return Integer.compare(key, o.key);
 	}
 
 	@Override
