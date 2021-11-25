@@ -114,7 +114,7 @@ public class Vertex<T extends Comparable<T>> implements Comparable<Vertex<T>> {
 		for(int i = 0; i < adjacent.size(); i ++) {
 			Vertex<T> adj = adjacent.get(i);
 			int w = weights.get(i);
-			msg += value + " -> " + adj + " : " + w + "\n";
+			msg += value + " -> " + adj.value() + " : " + w + "\n";
 		}
 		return msg;
 	}

@@ -90,8 +90,9 @@ public class Graph<T extends Comparable<T>> implements GraphInterface<T> {
 			List<Vertex<T>> adj = v.getAdjacent();
 			List<Integer> w = v.getWeights();
 			int i = adj.indexOf(u);
+			if(i != -1)
+				w.remove(i);
 			adj.remove(u);
-			w.remove(i);
 		}
 		-- size;
 	}
