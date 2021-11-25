@@ -1,9 +1,9 @@
 package structures.graph;
 
-import structures.queue.Queue;
-import structures.queue.QueueException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class Graph<T extends Comparable<T>> implements GraphInterface<T> {
 
@@ -108,21 +108,19 @@ public class Graph<T extends Comparable<T>> implements GraphInterface<T> {
 		}
 		s.setColor(Color.GRAY);
 		s.setKey(0);
-		Queue<Vertex<T>> queue = new Queue<>();
-		queue.enqueue(s);
+		Queue<Vertex<T>> queue = new LinkedList<>();
+		queue.add(s);
 		while(!queue.isEmpty()) {
-			try {
-				Vertex<T> u = queue.dequeue();
-				for(Vertex<T> v : u.getAdjacent()) {
-					if(v.getColor() == Color.WHITE) {
-						v.setColor(Color.GRAY);
-						v.setKey(u.getKey() + 1);
-						v.setPredecessor(u.value());
-						queue.enqueue(v);
-					}
+			Vertex<T> u = queue.poll();
+			for(Vertex<T> v : u.getAdjacent()) {
+				if(v.getColor() == Color.WHITE) {
+					v.setColor(Color.GRAY);
+					v.setKey(u.getKey() + 1);
+					v.setPredecessor(u.value());
+					queue.add(v);
 				}
-				u.setColor(Color.BLACK);
-			} catch (QueueException ignored) {}
+			}
+			u.setColor(Color.BLACK);
 		}
 	}
 

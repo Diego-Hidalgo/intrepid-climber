@@ -1,4 +1,4 @@
-package structures.adjList;
+package structures.adj_list;
 
 public class Vertex<E> {
 	
