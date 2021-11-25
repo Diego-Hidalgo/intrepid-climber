@@ -108,4 +108,15 @@ public class Vertex<T extends Comparable<T>> implements Comparable<Vertex<T>> {
 		return value.compareTo(o.value());
 	}
 
+	@Override
+	public String toString() {
+		String msg = "";
+		for(int i = 0; i < adjacent.size(); i ++) {
+			Vertex<T> adj = adjacent.get(i);
+			int w = weights.get(i);
+			msg += value + " -> " + adj + " : " + w + "\n";
+		}
+		return msg;
+	}
+
 }

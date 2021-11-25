@@ -181,4 +181,13 @@ public class Graph<T extends Comparable<T>> implements GraphInterface<T> {
 
 	}
 
+	@Override
+	public String toString() {
+		String msg = "";
+		for(Vertex<T> v : vertices) {
+			msg += v + " :\n" + v.toString();
+		}
+		return msg;
+	}
+
 }
