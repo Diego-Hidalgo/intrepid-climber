@@ -22,7 +22,6 @@ public class Graph<T extends Comparable<T>> implements GraphInterface<T> {
 		return size;
 	}
 
-
 	@Override
 	public boolean contains(T t) {
 		for(int i = 0; i < size; i ++) {
