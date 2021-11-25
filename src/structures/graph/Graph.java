@@ -157,6 +157,7 @@ public class Graph<T> implements GraphInterface<T> {
 
 	private void initializeSingleSource(Vertex<T> s) {
 		for(Vertex<T> v : vertices) {
+			v.setColor(Color.WHITE);
 			v.setKey(Integer.MAX_VALUE);
 			v.setPredecessor(null);
 		}
@@ -198,12 +199,20 @@ public class Graph<T> implements GraphInterface<T> {
 		Vertex<T> r = getVertexByValue(t);
 		if(r == null)
 			return;
-		for(Vertex<T> u : vertices) {
-			u.setKey(Integer.MAX_VALUE);
-			u.setColor(Color.WHITE);
+		initializeSingleSource(r);
+		PriorityQueue<Vertex<T>> queue = new PriorityQueue<>(vertices);
+		while(!queue.isEmpty()) {
+			Vertex<T> u = queue.poll();
+			for(Vertex<T> v : u.getAdjacent()) {
+				if(v.getColor() == Color.WHITE && weight(u, v) < v.getKey()) {
+					queue.remove(v);
+					v.setKey(weight(u, v));
+					v.setPredecessor(u.value());
+					queue.add(v);
+				}
+			}
+			u.setColor(Color.BLACK);
 		}
-		r.setKey(0);
-		r.setPredecessor(null);
 	}
 
 	@Override
