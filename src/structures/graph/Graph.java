@@ -42,7 +42,7 @@ public class Graph<T> implements GraphInterface<T> {
 			insert(t);
 	}
 
-	private Vertex<T> getVertexByValue(T t) {
+	public Vertex<T> getVertexByValue(T t) {
 		for(int i = 0; i < size; i ++) {
 			Vertex<T> current = vertices.get(i);
 			if(current.value() == t)
