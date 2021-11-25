@@ -1,5 +1,5 @@
 package structures.graph;
 
-public enum Colors {
+public enum Color {
 	WHITE, GRAY, BLACK
 }

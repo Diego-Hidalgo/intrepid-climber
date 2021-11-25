@@ -5,7 +5,7 @@ public class Vertex<E>  {
 	private E value;
 	private int id;
 	private int distance;
-	private Colors color;
+	private Color color;
 	private Connects<Integer, Integer> timestamps;
 	private Vertex<E> predecessor;
 
@@ -50,12 +50,12 @@ public class Vertex<E>  {
 	}
 
 
-	public Colors getColor() {
+	public Color getColor() {
 		return color;
 	}
 
 
-	public void setColor(Colors color) {
+	public void setColor(Color color) {
 		this.color = color;
 	}
 

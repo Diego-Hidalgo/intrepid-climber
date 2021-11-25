@@ -76,12 +76,12 @@ public class Graph<E> implements GraphInterface<E> {
 	@Override
 	public void bfs(Vertex<E> s) {
 		for (int i = 0; i < getVertex().size(); i++) {
-			getVertex().get(i).setColor(Colors.WHITE);
+			getVertex().get(i).setColor(Color.WHITE);
 			getVertex().get(i).setDistance(Integer.MAX_VALUE);
 			getVertex().get(i).setPredecessor(null);
 		}
 
-		s.setColor(Colors.GRAY);
+		s.setColor(Color.GRAY);
 		s.setDistance(0);
 		s.setPredecessor(null);
 
@@ -94,8 +94,8 @@ public class Graph<E> implements GraphInterface<E> {
 			for (int i = 0; i < edge.size(); i++) {
 				if(edge.get(i) != Integer.MAX_VALUE && i != u.getId()) {
 					Vertex<E> v = getVertex().get(i);
-					if(v.getColor() == Colors.WHITE) {
-						v.setColor(Colors.GRAY);
+					if(v.getColor() == Color.WHITE) {
+						v.setColor(Color.GRAY);
 						v.setDistance(u.getDistance()+1);
 						v.setPredecessor(u);
 						q.add(v);
@@ -103,18 +103,18 @@ public class Graph<E> implements GraphInterface<E> {
 				}
 			}
 
-			u.setColor(Colors.BLACK);
+			u.setColor(Color.BLACK);
 		}
 	}
 
 	@Override
 	public void dfs() {
 		for (int i = 0; i < getVertex().size(); i++) {
-			getVertex().get(i).setColor(Colors.WHITE);
+			getVertex().get(i).setColor(Color.WHITE);
 			getVertex().get(i).setPredecessor(null);
 		}
 		for (int i = 0; i < getVertex().size(); i++) {
-			if(getVertex().get(i).getColor().equals(Colors.WHITE)) {
+			if(getVertex().get(i).getColor().equals(Color.WHITE)) {
 				dfsVisit(getVertex().get(i),0);
 			}
 		}
@@ -123,19 +123,19 @@ public class Graph<E> implements GraphInterface<E> {
 	public int dfsVisit(Vertex<E> u, int time){
 		time = time + 1;
 		u.getTimestamps().setFirst(time);
-		u.setColor(Colors.GRAY);
+		u.setColor(Color.GRAY);
 		ArrayList<Integer> edge = edges.get(u.getId());
 		for (int i = 0; i < edge.size(); i++) {
 			if(edge.get(i) != Integer.MAX_VALUE && i != u.getId()) {
 				Vertex<E> v = getVertex().get(i);
-				if(v.getColor() == Colors.WHITE) {
+				if(v.getColor() == Color.WHITE) {
 					v.setPredecessor(u);
 					time = dfsVisit(v, time);
 				}
 			}
 		}
 
-		u.setColor(Colors.BLACK);
+		u.setColor(Color.BLACK);
 		time = time + 1;
 		u.getTimestamps().setSecond(time);
 		return time;
