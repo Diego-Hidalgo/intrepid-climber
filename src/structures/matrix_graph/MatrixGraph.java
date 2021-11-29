@@ -1,7 +1,6 @@
 package structures.matrix_graph;
 
 import structures.GraphInterface;
-
 import java.util.ArrayList;
 import java.util.List;
 

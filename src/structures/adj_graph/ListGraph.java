@@ -1,7 +1,6 @@
 package structures.adj_graph;
 
 import structures.GraphInterface;
-
 import java.util.*;
 
 public class ListGraph<E> implements GraphInterface<E> {
