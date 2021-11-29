@@ -40,12 +40,12 @@ public class MatrixGraph<E> implements GraphInterface<E> {
     }
 
     private void extendCapacity() {
-        int[][] extended = new int[capacity + 10][ capacity + 10];
+        capacity = capacity + 10;
+        int[][] extended = new int[capacity][capacity];
         for(int i = 0; i < size; i ++)
             for(int j = 0; j < size; j ++)
                 extended[i][j] = matrix[i][j];
         matrix = extended;
-        capacity = capacity + 10;
     }
 
     @Override

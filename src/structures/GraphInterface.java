@@ -2,31 +2,31 @@ package structures;
 
 import java.util.List;
 
-public interface GraphInterface<T> {
+public interface GraphInterface<E> {
 
 	int size();
 
-	boolean contains(T t);
+	boolean contains(E e);
 
-	void insert(T t);
+	void insert(E e);
 
-	void insert(List<T> ts);
+	void insert(List<E> es);
 
-	void insert(T t, T v, int w);
+	void insert(E e, E v, int w);
 
-	void insert(T t, List<T> adjacent, List<Integer> weights);
+	void insert(E e, List<E> adjacent, List<Integer> weights);
 
-	void remove(T t);
+	void remove(E e);
 
-	void bfs(T t);
+	void bfs(E e);
 
 	void dfs();
 
-	void dijkstra(T t);
+	void dijkstra(E e);
 
 	void floyd();
 
-	void prim(T t);
+	void prim(E e);
 
 	void kruskal();
 
