@@ -28,6 +28,10 @@ public class MatrixGraph<E> implements GraphInterface<E> {
 
     @Override
     public boolean contains(E e) {
+        for(int i = 0; i < size; i ++) {
+            if(vertices.get(i).value() == e)
+                return true;
+        }
         return false;
     }
 
