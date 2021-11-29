@@ -6,7 +6,7 @@ import java.util.*;
 
 public class ListGraph<E> implements GraphInterface<E> {
 
-	private List<Vertex<E>> vertices;
+	private List<ListVertex<E>> vertices;
 	private int size;
 	private int time;
 
@@ -33,7 +33,7 @@ public class ListGraph<E> implements GraphInterface<E> {
 	@Override
 	public void insert(E e) {
 		if(!contains(e)) {
-			vertices.add(new Vertex<E>(e));
+			vertices.add(new ListVertex<E>(e));
 			++ size;
 		}
 	}
@@ -44,9 +44,9 @@ public class ListGraph<E> implements GraphInterface<E> {
 			insert(e);
 	}
 
-	public Vertex<E> getVertexByValue(E e) {
+	public ListVertex<E> getVertexByValue(E e) {
 		for(int i = 0; i < size; i ++) {
-			Vertex<E> current = vertices.get(i);
+			ListVertex<E> current = vertices.get(i);
 			if(current.value() == e)
 				return current;
 		}
@@ -57,8 +57,8 @@ public class ListGraph<E> implements GraphInterface<E> {
 	public void insert(E e, E v, int w) {
 		insert(e);
 		insert(v);
-		Vertex<E> tV = getVertexByValue(e);
-		Vertex<E> vV = getVertexByValue(v);
+		ListVertex<E> tV = getVertexByValue(e);
+		ListVertex<E> vV = getVertexByValue(v);
 		tV.link(vV, w);
 		vV.link(tV, w);
 	}
@@ -69,9 +69,9 @@ public class ListGraph<E> implements GraphInterface<E> {
 			return;
 		insert(e);
 		insert(adjacent);
-		Vertex<E> u = getVertexByValue(e);
+		ListVertex<E> u = getVertexByValue(e);
 		for(int i = 0; i < adjacent.size(); i ++) {
-			Vertex<E> v = getVertexByValue(adjacent.get(i));
+			ListVertex<E> v = getVertexByValue(adjacent.get(i));
 			int w = weights.get(i);
 			u.link(v, w);
 			v.link(u, w);
@@ -80,12 +80,12 @@ public class ListGraph<E> implements GraphInterface<E> {
 
 	@Override
 	public void remove(E e) {
-		Vertex<E> u = getVertexByValue(e);
+		ListVertex<E> u = getVertexByValue(e);
 		if(u == null)
 			return;
 		vertices.remove(u);
-		for(Vertex<E> v : vertices) {
-			List<Vertex<E>> adj = v.getAdjacent();
+		for(ListVertex<E> v : vertices) {
+			List<ListVertex<E>> adj = v.getAdjacent();
 			List<Integer> w = v.getWeights();
 			int i = adj.indexOf(u);
 			if(i != -1)
@@ -97,21 +97,21 @@ public class ListGraph<E> implements GraphInterface<E> {
 
 	@Override
 	public void bfs(E e) {
-		Vertex<E> s = getVertexByValue(e);
+		ListVertex<E> s = getVertexByValue(e);
 		if(s == null)
 			return;
-		for(Vertex<E> u : vertices) {
+		for(ListVertex<E> u : vertices) {
 			u.setColor(Color.WHITE);
 			u.setKey(Integer.MAX_VALUE);
 			u.setPredecessor(null);
 		}
 		s.setColor(Color.GRAY);
 		s.setKey(0);
-		Queue<Vertex<E>> queue = new LinkedList<>();
+		Queue<ListVertex<E>> queue = new LinkedList<>();
 		queue.add(s);
 		while(!queue.isEmpty()) {
-			Vertex<E> u = queue.poll();
-			for(Vertex<E> v : u.getAdjacent()) {
+			ListVertex<E> u = queue.poll();
+			for(ListVertex<E> v : u.getAdjacent()) {
 				if(v.getColor() == Color.WHITE) {
 					v.setColor(Color.GRAY);
 					v.setKey(u.getKey() + 1);
@@ -125,13 +125,13 @@ public class ListGraph<E> implements GraphInterface<E> {
 
 	@Override
 	public void dfs() {
-		for(Vertex<E> u : vertices) {
+		for(ListVertex<E> u : vertices) {
 			u.setColor(Color.WHITE);
 			u.setPredecessor(null);
 			u.setKey(Integer.MAX_VALUE);
 		}
 		time = 0;
-		for(Vertex<E> u : vertices) {
+		for(ListVertex<E> u : vertices) {
 			if(u.getColor() == Color.WHITE) {
 				u.setKey(0);
 				dfsVisit(u);
@@ -139,10 +139,10 @@ public class ListGraph<E> implements GraphInterface<E> {
 		}
 	}
 
-	private void dfsVisit(Vertex<E> u) {
+	private void dfsVisit(ListVertex<E> u) {
 		u.setStart(++ time);
 		u.setColor(Color.GRAY);
-		for(Vertex<E> v : u.getAdjacent()) {
+		for(ListVertex<E> v : u.getAdjacent()) {
 			if(v.getColor() == Color.WHITE) {
 				v.setPredecessor(u.value());
 				v.setKey(u.getKey() + 1);
@@ -153,12 +153,12 @@ public class ListGraph<E> implements GraphInterface<E> {
 		u.setEnd(++ time);
 	}
 
-	private int weight(Vertex<E> u, Vertex<E> v) {
+	private int weight(ListVertex<E> u, ListVertex<E> v) {
 		return u.weight(v);
 	}
 
-	private void initializeSingleSource(Vertex<E> s) {
-		for(Vertex<E> v : vertices) {
+	private void initializeSingleSource(ListVertex<E> s) {
+		for(ListVertex<E> v : vertices) {
 			v.setColor(Color.WHITE);
 			v.setKey(Integer.MAX_VALUE);
 			v.setPredecessor(null);
@@ -166,7 +166,7 @@ public class ListGraph<E> implements GraphInterface<E> {
 		s.setKey(0);
 	}
 
-	private void relax(Vertex<E> u, Vertex<E> v) {
+	private void relax(ListVertex<E> u, ListVertex<E> v) {
 		if(u.getKey() == Integer.MAX_VALUE)
 			return;
 		if(v.getKey() > u.getKey() + weight(u, v)) {
@@ -177,16 +177,16 @@ public class ListGraph<E> implements GraphInterface<E> {
 
 	@Override
 	public void dijkstra(E e) {
-		Vertex<E> source = getVertexByValue(e);
+		ListVertex<E> source = getVertexByValue(e);
 		if(source == null)
 			return;
 		initializeSingleSource(source);
-		List<Vertex<E>> shortest = new ArrayList<>();
-		PriorityQueue<Vertex<E>> queue = new PriorityQueue<>(vertices);
+		List<ListVertex<E>> shortest = new ArrayList<>();
+		PriorityQueue<ListVertex<E>> queue = new PriorityQueue<>(vertices);
 		while(!queue.isEmpty()) {
-			Vertex<E> u = queue.poll();
+			ListVertex<E> u = queue.poll();
 			shortest.add(u);
-			for(Vertex<E> v : u.getAdjacent())
+			for(ListVertex<E> v : u.getAdjacent())
 				relax(u, v);
 		}
 	}
@@ -198,14 +198,14 @@ public class ListGraph<E> implements GraphInterface<E> {
 
 	@Override
 	public void prim(E e) {
-		Vertex<E> r = getVertexByValue(e);
+		ListVertex<E> r = getVertexByValue(e);
 		if(r == null)
 			return;
 		initializeSingleSource(r);
-		PriorityQueue<Vertex<E>> queue = new PriorityQueue<>(vertices);
+		PriorityQueue<ListVertex<E>> queue = new PriorityQueue<>(vertices);
 		while(!queue.isEmpty()) {
-			Vertex<E> u = queue.poll();
-			for(Vertex<E> v : u.getAdjacent()) {
+			ListVertex<E> u = queue.poll();
+			for(ListVertex<E> v : u.getAdjacent()) {
 				if(v.getColor() == Color.WHITE && weight(u, v) < v.getKey()) {
 					queue.remove(v);
 					v.setKey(weight(u, v));
@@ -225,7 +225,7 @@ public class ListGraph<E> implements GraphInterface<E> {
 	@Override
 	public String toString() {
 		String msg = "";
-		for(Vertex<E> v : vertices) {
+		for(ListVertex<E> v : vertices) {
 			msg += v.value() + " :"
 					+ "\nPredecessor: " + v.getPredecessor()
 					+ "\nstart: " + v.start()

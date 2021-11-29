@@ -3,17 +3,17 @@ package structures.adj_graph;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Vertex<T> implements Comparable<Vertex<T>> {
+public class ListVertex<T> implements Comparable<ListVertex<T>> {
 
 	private T value;
-	private List<Vertex<T>> adjacent;
+	private List<ListVertex<T>> adjacent;
 	private List<Integer> weights;
 	private int key;
 	private T predecessor;
 	private Color color;
 	private TimeStamp timeStamp;
 
-	public Vertex(T value) {
+	public ListVertex(T value) {
 		this.value = value;
 		adjacent = new ArrayList<>();
 		weights = new ArrayList<>();
@@ -30,11 +30,11 @@ public class Vertex<T> implements Comparable<Vertex<T>> {
 		this.value = value;
 	}
 
-	public List<Vertex<T>> getAdjacent() {
+	public List<ListVertex<T>> getAdjacent() {
 		return adjacent;
 	}
 
-	public void setAdjacent(List<Vertex<T>> adjacent) {
+	public void setAdjacent(List<ListVertex<T>> adjacent) {
 		this.adjacent = adjacent;
 	}
 
@@ -86,16 +86,16 @@ public class Vertex<T> implements Comparable<Vertex<T>> {
 		timeStamp.setEnd(end);
 	}
 
-	public void link(Vertex<T> v, int w) {
+	public void link(ListVertex<T> v, int w) {
 		adjacent.add(v);
 		weights.add(w);
 	}
 
-	public boolean contains(Vertex<T> v) {
+	public boolean contains(ListVertex<T> v) {
 		return adjacent.contains(v);
 	}
 
-	public int weight(Vertex<T> v) {
+	public int weight(ListVertex<T> v) {
 		for(int i = 0; i < adjacent.size(); i ++) {
 			if(adjacent.get(i) == v)
 				return weights.get(i);
@@ -104,7 +104,7 @@ public class Vertex<T> implements Comparable<Vertex<T>> {
 	}
 
 	@Override
-	public int compareTo(Vertex<T> o) {
+	public int compareTo(ListVertex<T> o) {
 		return Integer.compare(key, o.key);
 	}
 
@@ -112,7 +112,7 @@ public class Vertex<T> implements Comparable<Vertex<T>> {
 	public String toString() {
 		String msg = "";
 		for(int i = 0; i < adjacent.size(); i ++) {
-			Vertex<T> adj = adjacent.get(i);
+			ListVertex<T> adj = adjacent.get(i);
 			int w = weights.get(i);
 			msg += value + " -> " + adj.value() + " : " + w + "\n";
 		}
