@@ -151,17 +151,19 @@ public class MatrixGraph<E> implements GraphInterface<E> {
 
     @Override
     public String toString() {
-        String msg = "";
+        String msg1 = "";
+        String msg2 = "";
         for(int i = 0; i < size; i ++) {
+            msg1 += vertices.get(i) + "\n";
             for(int j = 0; j < size; j ++) {
                 if(matrix[i][j] == Integer.MAX_VALUE)
-                    msg += "∞ ";
+                    msg2 += "∞ ";
                 else
-                    msg += matrix[i][j] + " ";
+                    msg2 += matrix[i][j] + " ";
             }
-            msg += "\n";
+            msg2 += "\n";
         }
-        return msg;
+        return msg1 + msg2;
     }
 
 }
