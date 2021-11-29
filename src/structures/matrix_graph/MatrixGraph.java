@@ -35,6 +35,19 @@ public class MatrixGraph<E> implements GraphInterface<E> {
         return false;
     }
 
+    private boolean isFull() {
+        return (size == capacity);
+    }
+
+    private void extendCapacity() {
+        int[][] extended = new int[capacity + 10][ capacity + 10];
+        for(int i = 0; i < size; i ++)
+            for(int j = 0; j < size; j ++)
+                extended[i][j] = matrix[i][j];
+        matrix = extended;
+        capacity = capacity + 10;
+    }
+
     @Override
     public void insert(E e) {
 
