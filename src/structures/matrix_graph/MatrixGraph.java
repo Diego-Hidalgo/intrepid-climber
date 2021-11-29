@@ -2,9 +2,24 @@ package structures.matrix_graph;
 
 import structures.GraphInterface;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MatrixGraph<E> implements GraphInterface<E> {
+
+    private static final int INITIAL_CAPACITY = 10;
+
+    private int size;
+    private List<MatrixVertex<E>> vertices;
+    private int[][] matrix;
+    private int capacity;
+
+    public MatrixGraph() {
+        size = 0;
+        vertices = new ArrayList<>();
+        matrix = new int[INITIAL_CAPACITY][INITIAL_CAPACITY];
+        capacity = INITIAL_CAPACITY;
+    }
 
     @Override
     public int size() {
