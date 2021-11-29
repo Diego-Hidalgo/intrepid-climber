@@ -4,9 +4,9 @@ import structures.GraphInterface;
 
 import java.util.*;
 
-public class ListGraph<T> implements GraphInterface<T> {
+public class ListGraph<E> implements GraphInterface<E> {
 
-	private List<Vertex<T>> vertices;
+	private List<Vertex<E>> vertices;
 	private int size;
 	private int time;
 
@@ -22,56 +22,56 @@ public class ListGraph<T> implements GraphInterface<T> {
 	}
 
 	@Override
-	public boolean contains(T t) {
+	public boolean contains(E e) {
 		for(int i = 0; i < size; i ++) {
-			if(vertices.get(i).value() == t)
+			if(vertices.get(i).value() == e)
 				return true;
 		}
 		return false;
 	}
 
 	@Override
-	public void insert(T t) {
-		if(!contains(t)) {
-			vertices.add(new Vertex<T>(t));
+	public void insert(E e) {
+		if(!contains(e)) {
+			vertices.add(new Vertex<E>(e));
 			++ size;
 		}
 	}
 
 	@Override
-	public void insert(List<T> ts) {
-		for (T t : ts)
-			insert(t);
+	public void insert(List<E> es) {
+		for (E e : es)
+			insert(e);
 	}
 
-	public Vertex<T> getVertexByValue(T t) {
+	public Vertex<E> getVertexByValue(E e) {
 		for(int i = 0; i < size; i ++) {
-			Vertex<T> current = vertices.get(i);
-			if(current.value() == t)
+			Vertex<E> current = vertices.get(i);
+			if(current.value() == e)
 				return current;
 		}
 		return null;
 	}
 
 	@Override
-	public void insert(T t, T v, int w) {
-		insert(t);
+	public void insert(E e, E v, int w) {
+		insert(e);
 		insert(v);
-		Vertex<T> tV = getVertexByValue(t);
-		Vertex<T> vV = getVertexByValue(v);
+		Vertex<E> tV = getVertexByValue(e);
+		Vertex<E> vV = getVertexByValue(v);
 		tV.link(vV, w);
 		vV.link(tV, w);
 	}
 
 	@Override
-	public void insert(T t, List<T> adjacent, List<Integer> weights) {
+	public void insert(E e, List<E> adjacent, List<Integer> weights) {
 		if(adjacent.size() != weights.size())
 			return;
-		insert(t);
+		insert(e);
 		insert(adjacent);
-		Vertex<T> u = getVertexByValue(t);
+		Vertex<E> u = getVertexByValue(e);
 		for(int i = 0; i < adjacent.size(); i ++) {
-			Vertex<T> v = getVertexByValue(adjacent.get(i));
+			Vertex<E> v = getVertexByValue(adjacent.get(i));
 			int w = weights.get(i);
 			u.link(v, w);
 			v.link(u, w);
@@ -79,13 +79,13 @@ public class ListGraph<T> implements GraphInterface<T> {
 	}
 
 	@Override
-	public void remove(T t) {
-		Vertex<T> u = getVertexByValue(t);
+	public void remove(E e) {
+		Vertex<E> u = getVertexByValue(e);
 		if(u == null)
 			return;
 		vertices.remove(u);
-		for(Vertex<T> v : vertices) {
-			List<Vertex<T>> adj = v.getAdjacent();
+		for(Vertex<E> v : vertices) {
+			List<Vertex<E>> adj = v.getAdjacent();
 			List<Integer> w = v.getWeights();
 			int i = adj.indexOf(u);
 			if(i != -1)
@@ -96,22 +96,22 @@ public class ListGraph<T> implements GraphInterface<T> {
 	}
 
 	@Override
-	public void bfs(T t) {
-		Vertex<T> s = getVertexByValue(t);
+	public void bfs(E e) {
+		Vertex<E> s = getVertexByValue(e);
 		if(s == null)
 			return;
-		for(Vertex<T> u : vertices) {
+		for(Vertex<E> u : vertices) {
 			u.setColor(Color.WHITE);
 			u.setKey(Integer.MAX_VALUE);
 			u.setPredecessor(null);
 		}
 		s.setColor(Color.GRAY);
 		s.setKey(0);
-		Queue<Vertex<T>> queue = new LinkedList<>();
+		Queue<Vertex<E>> queue = new LinkedList<>();
 		queue.add(s);
 		while(!queue.isEmpty()) {
-			Vertex<T> u = queue.poll();
-			for(Vertex<T> v : u.getAdjacent()) {
+			Vertex<E> u = queue.poll();
+			for(Vertex<E> v : u.getAdjacent()) {
 				if(v.getColor() == Color.WHITE) {
 					v.setColor(Color.GRAY);
 					v.setKey(u.getKey() + 1);
@@ -125,13 +125,13 @@ public class ListGraph<T> implements GraphInterface<T> {
 
 	@Override
 	public void dfs() {
-		for(Vertex<T> u : vertices) {
+		for(Vertex<E> u : vertices) {
 			u.setColor(Color.WHITE);
 			u.setPredecessor(null);
 			u.setKey(Integer.MAX_VALUE);
 		}
 		time = 0;
-		for(Vertex<T> u : vertices) {
+		for(Vertex<E> u : vertices) {
 			if(u.getColor() == Color.WHITE) {
 				u.setKey(0);
 				dfsVisit(u);
@@ -139,10 +139,10 @@ public class ListGraph<T> implements GraphInterface<T> {
 		}
 	}
 
-	private void dfsVisit(Vertex<T> u) {
+	private void dfsVisit(Vertex<E> u) {
 		u.setStart(++ time);
 		u.setColor(Color.GRAY);
-		for(Vertex<T> v : u.getAdjacent()) {
+		for(Vertex<E> v : u.getAdjacent()) {
 			if(v.getColor() == Color.WHITE) {
 				v.setPredecessor(u.value());
 				v.setKey(u.getKey() + 1);
@@ -153,12 +153,12 @@ public class ListGraph<T> implements GraphInterface<T> {
 		u.setEnd(++ time);
 	}
 
-	private int weight(Vertex<T> u, Vertex<T> v) {
+	private int weight(Vertex<E> u, Vertex<E> v) {
 		return u.weight(v);
 	}
 
-	private void initializeSingleSource(Vertex<T> s) {
-		for(Vertex<T> v : vertices) {
+	private void initializeSingleSource(Vertex<E> s) {
+		for(Vertex<E> v : vertices) {
 			v.setColor(Color.WHITE);
 			v.setKey(Integer.MAX_VALUE);
 			v.setPredecessor(null);
@@ -166,7 +166,7 @@ public class ListGraph<T> implements GraphInterface<T> {
 		s.setKey(0);
 	}
 
-	private void relax(Vertex<T> u, Vertex<T> v) {
+	private void relax(Vertex<E> u, Vertex<E> v) {
 		if(u.getKey() == Integer.MAX_VALUE)
 			return;
 		if(v.getKey() > u.getKey() + weight(u, v)) {
@@ -176,17 +176,17 @@ public class ListGraph<T> implements GraphInterface<T> {
 	}
 
 	@Override
-	public void dijkstra(T t) {
-		Vertex<T> source = getVertexByValue(t);
+	public void dijkstra(E e) {
+		Vertex<E> source = getVertexByValue(e);
 		if(source == null)
 			return;
 		initializeSingleSource(source);
-		List<Vertex<T>> shortest = new ArrayList<>();
-		PriorityQueue<Vertex<T>> queue = new PriorityQueue<>(vertices);
+		List<Vertex<E>> shortest = new ArrayList<>();
+		PriorityQueue<Vertex<E>> queue = new PriorityQueue<>(vertices);
 		while(!queue.isEmpty()) {
-			Vertex<T> u = queue.poll();
+			Vertex<E> u = queue.poll();
 			shortest.add(u);
-			for(Vertex<T> v : u.getAdjacent())
+			for(Vertex<E> v : u.getAdjacent())
 				relax(u, v);
 		}
 	}
@@ -197,15 +197,15 @@ public class ListGraph<T> implements GraphInterface<T> {
 	}
 
 	@Override
-	public void prim(T t) {
-		Vertex<T> r = getVertexByValue(t);
+	public void prim(E e) {
+		Vertex<E> r = getVertexByValue(e);
 		if(r == null)
 			return;
 		initializeSingleSource(r);
-		PriorityQueue<Vertex<T>> queue = new PriorityQueue<>(vertices);
+		PriorityQueue<Vertex<E>> queue = new PriorityQueue<>(vertices);
 		while(!queue.isEmpty()) {
-			Vertex<T> u = queue.poll();
-			for(Vertex<T> v : u.getAdjacent()) {
+			Vertex<E> u = queue.poll();
+			for(Vertex<E> v : u.getAdjacent()) {
 				if(v.getColor() == Color.WHITE && weight(u, v) < v.getKey()) {
 					queue.remove(v);
 					v.setKey(weight(u, v));
@@ -225,7 +225,7 @@ public class ListGraph<T> implements GraphInterface<T> {
 	@Override
 	public String toString() {
 		String msg = "";
-		for(Vertex<T> v : vertices) {
+		for(Vertex<E> v : vertices) {
 			msg += v.value() + " :"
 					+ "\nPredecessor: " + v.getPredecessor()
 					+ "\nstart: " + v.start()
