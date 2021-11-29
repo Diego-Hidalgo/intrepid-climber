@@ -23,7 +23,7 @@ public class MatrixGraph<E> implements GraphInterface<E> {
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
