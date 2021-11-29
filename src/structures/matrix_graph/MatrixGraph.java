@@ -109,6 +109,18 @@ public class MatrixGraph<E> implements GraphInterface<E> {
     }
 
     @Override
+    public int weight(E u, E v) {
+        if(!contains(u) || !contains(v))
+            return Integer.MAX_VALUE;
+        else
+            return weight(getVertexByValue(u), getVertexByValue(v));
+    }
+
+    private int weight(MatrixVertex<E> u, MatrixVertex<E> v) {
+        return matrix[u.getPosition()][v.getPosition()];
+    }
+
+    @Override
     public void bfs(E e) {
 
     }

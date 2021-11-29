@@ -96,6 +96,18 @@ public class ListGraph<E> implements GraphInterface<E> {
 	}
 
 	@Override
+	public int weight(E u, E v) {
+		if(!contains(u) || !contains(v))
+			return Integer.MAX_VALUE;
+		else
+			return weight(getVertexByValue(u), getVertexByValue(v));
+	}
+
+	private int weight(ListVertex<E> u, ListVertex<E> v) {
+		return u.weight(v);
+	}
+
+	@Override
 	public void bfs(E e) {
 		ListVertex<E> s = getVertexByValue(e);
 		if(s == null)
@@ -151,10 +163,6 @@ public class ListGraph<E> implements GraphInterface<E> {
 		}
 		u.setColor(Color.BLACK);
 		u.setEnd(++ time);
-	}
-
-	private int weight(ListVertex<E> u, ListVertex<E> v) {
-		return u.weight(v);
 	}
 
 	private void initializeSingleSource(ListVertex<E> s) {

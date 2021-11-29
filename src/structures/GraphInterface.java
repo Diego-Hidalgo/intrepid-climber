@@ -18,6 +18,8 @@ public interface GraphInterface<E> {
 
 	void remove(E e);
 
+	int weight(E u, E v);
+
 	void bfs(E e);
 
 	void dfs();
