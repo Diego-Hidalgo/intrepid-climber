@@ -70,14 +70,37 @@ public class MatrixGraph<E> implements GraphInterface<E> {
             insert(e);
     }
 
+    private MatrixVertex<E> getVertexByValue(E e) {
+        for(int i = 0; i < size; i ++) {
+            MatrixVertex<E> current = vertices.get(i);
+            if(current.value() == e)
+                return current;
+        }
+        return null;
+    }
+
     @Override
     public void insert(E e, E v, int w) {
-
+        insert(e);
+        insert(v);
+        int ePosition = getVertexByValue(e).getPosition();
+        int vPosition = getVertexByValue(v).getPosition();
+        matrix[ePosition][vPosition] = w;
+        matrix[vPosition][ePosition] = w;
     }
 
     @Override
     public void insert(E e, List<E> adjacent, List<Integer> weights) {
-
+        if(adjacent.size() != weights.size())
+            return;
+        insert(e);
+        insert(adjacent);
+        int ePosition = getVertexByValue(e).getPosition();
+        for(int i = 0; i < adjacent.size(); i ++) {
+            int adjPosition = getVertexByValue(adjacent.get(i)).getPosition();
+            matrix[ePosition][adjPosition] = weights.get(i);
+            matrix[adjPosition][ePosition] = weights.get(i);
+        }
     }
 
     @Override
