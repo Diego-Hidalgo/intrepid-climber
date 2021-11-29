@@ -50,12 +50,24 @@ public class MatrixGraph<E> implements GraphInterface<E> {
 
     @Override
     public void insert(E e) {
-
+        if(!contains(e)) {
+            if(isFull())
+                extendCapacity();
+            MatrixVertex<E> toAdd = new MatrixVertex<>(e, size);
+            vertices.add(toAdd);
+            for(int i = 0; i < size; i ++) {
+                matrix[i][size] = Integer.MAX_VALUE;
+                matrix[size][i] = Integer.MAX_VALUE;
+            }
+            matrix[size][size] = 0;
+            ++ size;
+        }
     }
 
     @Override
     public void insert(List<E> es) {
-
+        for(E e : es)
+            insert(e);
     }
 
     @Override
