@@ -138,4 +138,19 @@ public class MatrixGraph<E> implements GraphInterface<E> {
 
     }
 
+    @Override
+    public String toString() {
+        String msg = "";
+        for(int i = 0; i < size; i ++) {
+            for(int j = 0; j < size; j ++) {
+                if(matrix[i][j] == Integer.MAX_VALUE)
+                    msg += "∞ ";
+                else
+                    msg += matrix[i][j] + " ";
+            }
+            msg += "\n";
+        }
+        return msg;
+    }
+
 }
