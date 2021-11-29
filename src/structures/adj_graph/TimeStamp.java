@@ -1,4 +1,4 @@
-package structures.graph;
+package structures.adj_graph;
 
 public class TimeStamp {
 

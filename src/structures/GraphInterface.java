@@ -1,4 +1,4 @@
-package structures.graph;
+package structures;
 
 import java.util.List;
 
@@ -29,6 +29,5 @@ public interface GraphInterface<T> {
 	void prim(T t);
 
 	void kruskal();
-
 
 }

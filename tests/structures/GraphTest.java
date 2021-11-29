@@ -7,17 +7,16 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import structures.graph.Color;
-import structures.graph.Graph;
+import structures.adj_graph.ListGraph;
 
 public class GraphTest {
 
-	Graph<Integer> graph;
+	ListGraph<Integer> graph;
 	List<Integer> v;
 	List<Integer> w;
 	
-	public Graph<Integer> graphScenary1() {
-		graph = new Graph<>();
+	public ListGraph<Integer> graphScenary1() {
+		graph = new ListGraph<>();
 		v = new ArrayList<>();
 		
 		v.add(1);
@@ -37,8 +36,8 @@ public class GraphTest {
 		return graph;
 	}
 	
-	public Graph<Integer> graphScenary2() {
-		graph = new Graph<>();
+	public ListGraph<Integer> graphScenary2() {
+		graph = new ListGraph<>();
 		v = new ArrayList<>();
 		w = new ArrayList<>();
 		
@@ -61,7 +60,7 @@ public class GraphTest {
 	
 	@Test
 	public void testInsert() {
-		Graph<Integer> graph = graphScenary1();
+		ListGraph<Integer> graph = graphScenary1();
 		
 		v.add(6);
 		graph.insert(5, 6, 0);
@@ -72,7 +71,7 @@ public class GraphTest {
 	
 	@Test
 	public void testInsert2() {
-		Graph<Integer> graph = graphScenary2();
+		ListGraph<Integer> graph = graphScenary2();
 		
 		v.add(6);
 		graph.insert(4, 6, 1);
@@ -83,7 +82,7 @@ public class GraphTest {
 	
 	@Test
 	public void testRemove() {
-		Graph<Integer> graph = graphScenary1();
+		ListGraph<Integer> graph = graphScenary1();
 		
 		v.add(6);
 		graph.insert(4, 6, 1);
@@ -96,7 +95,7 @@ public class GraphTest {
 	
 	@Test
 	public void testRemove2() {
-		Graph<Integer> graph = graphScenary2();
+		ListGraph<Integer> graph = graphScenary2();
 		
 		v.add(6);
 		graph.insert(4, 6, 1);
@@ -109,7 +108,7 @@ public class GraphTest {
 	
 	@Test
 	public void testBfs() {
-		Graph<Integer> graph = graphScenary1();
+		ListGraph<Integer> graph = graphScenary1();
 		
 		graph.bfs(1);
 		
@@ -122,9 +121,9 @@ public class GraphTest {
 	
 	/*@Test
 	public void testDfs() {
-		Graph<Integer> graph = graphScenary1();
+		ListGraph<Integer> adj_graph = graphScenary1();
 		
-		graph.dfs();
+		adj_graph.dfs();
 		
 	}*/
 }

@@ -1,14 +1,16 @@
-package structures.graph;
+package structures.adj_graph;
+
+import structures.GraphInterface;
 
 import java.util.*;
 
-public class Graph<T> implements GraphInterface<T> {
+public class ListGraph<T> implements GraphInterface<T> {
 
 	private List<Vertex<T>> vertices;
 	private int size;
 	private int time;
 
-	public Graph() {
+	public ListGraph() {
 		vertices = new ArrayList<>();
 		size = 0;
 		time = 0;
