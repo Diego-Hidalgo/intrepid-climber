@@ -137,6 +137,7 @@ public class ListGraph<E> implements GraphInterface<E> {
 	@Override
 	public void dfs() {
 		for(ListVertex<E> u : vertices) {
+			u.setKey(0);
 			u.setColor(Color.WHITE);
 			u.setPredecessor(null);
 			u.setKey(Integer.MAX_VALUE);
@@ -144,7 +145,6 @@ public class ListGraph<E> implements GraphInterface<E> {
 		time = 0;
 		for(ListVertex<E> u : vertices) {
 			if(u.getColor() == Color.WHITE) {
-				u.setKey(0);
 				dfsVisit(u);
 			}
 		}
@@ -156,7 +156,6 @@ public class ListGraph<E> implements GraphInterface<E> {
 		for(ListVertex<E> v : u.getAdjacent()) {
 			if(v.getColor() == Color.WHITE) {
 				v.setPredecessor(u.value());
-				v.setKey(u.getKey() + 1);
 				dfsVisit(v);
 			}
 		}
