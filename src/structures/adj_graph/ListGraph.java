@@ -183,10 +183,10 @@ public class ListGraph<E> implements GraphInterface<E> {
 	}
 
 	@Override
-	public void dijkstra(E e) {
+	public List<ListVertex<E>> dijkstra(E e) {
 		ListVertex<E> source = getVertexByValue(e);
 		if(source == null)
-			return;
+			return null;
 		initializeSingleSource(source);
 		List<ListVertex<E>> shortest = new ArrayList<>();
 		PriorityQueue<ListVertex<E>> queue = new PriorityQueue<>(vertices);
@@ -196,6 +196,8 @@ public class ListGraph<E> implements GraphInterface<E> {
 			for(ListVertex<E> v : u.getAdjacent())
 				relax(u, v);
 		}
+		
+		return shortest;
 	}
 
 	@Override

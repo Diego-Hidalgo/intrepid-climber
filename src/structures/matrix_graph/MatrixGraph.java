@@ -1,6 +1,8 @@
 package structures.matrix_graph;
 
 import structures.GraphInterface;
+import structures.adj_graph.ListVertex;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,7 +132,8 @@ public class MatrixGraph<E> implements GraphInterface<E> {
     }
 
     @Override
-    public void dijkstra(E e) {
+    public List<ListVertex<E>> dijkstra(E e) {
+		return null;
 
     }
 

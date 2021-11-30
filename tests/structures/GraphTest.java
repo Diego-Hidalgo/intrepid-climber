@@ -126,5 +126,45 @@ public class GraphTest {
 		adj_graph.dfs();
 		
 	}*/
+	
+	@Test
+	public void testDijkstra() {
+		ListGraph<Integer> graph = graphScenary2();
+		
+		graph.dijkstra(1);
+		
+		//assertEquals(1, graph.dijkstra(1).get(0));
+		
+		
+	}
+	
+	@Test
+	public void testFloyd() {
+		ListGraph<Integer> graph = graphScenary2();
+		
+		
+	}
+	
+	
+	@Test
+	public void testPrim() {
+		ListGraph<Integer> graph = graphScenary2();
+		
+		graph.prim(2);
+		
+		assertEquals(0, graph.getVertexByValue(2).getKey());
+		assertEquals(1, graph.getVertexByValue(5).getKey());
+		assertEquals(2, graph.getVertexByValue(4).getKey());
+		assertEquals(3, graph.getVertexByValue(3).getKey());
+		assertEquals(11, graph.getVertexByValue(1).getKey());
+		
+	}
+	
+	@Test
+	public void testKruskal() {
+		ListGraph<Integer> graph = graphScenary2();
+		
+		
+	}
 }
 

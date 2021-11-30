@@ -2,6 +2,8 @@ package structures;
 
 import java.util.List;
 
+import structures.adj_graph.ListVertex;
+
 public interface GraphInterface<E> {
 
 	int size();
@@ -24,7 +26,7 @@ public interface GraphInterface<E> {
 
 	void dfs();
 
-	void dijkstra(E e);
+	List<ListVertex<E>> dijkstra(E e);
 
 	void floyd();
 
