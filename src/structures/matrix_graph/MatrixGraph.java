@@ -141,14 +141,16 @@ public class MatrixGraph<E> implements GraphInterface<E> {
     @Override
     public void floyd() {
         int[][] dist = matrix.clone();
-        for(int k = 0; k < size; k ++)
-            for(int i = 0; i < size; i ++)
-                for(int j = 0; j < size; j ++) {
-                    if(dist[i][k] == Integer.MAX_VALUE || dist[k][j] == Integer.MAX_VALUE)
+        for(int k = 0; k < size; k ++) {
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size; j++) {
+                    if (dist[i][k] == Integer.MAX_VALUE || dist[k][j] == Integer.MAX_VALUE)
                         continue;
                     if (dist[i][j] > dist[i][k] + dist[k][j])
                         dist[i][j] = dist[i][k] + dist[k][j];
                 }
+            }
+        }
     }
 
     @Override
