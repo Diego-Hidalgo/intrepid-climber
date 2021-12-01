@@ -140,7 +140,37 @@ public class ListGraphTest {
 	public void testFloyd() {
 		ListGraph<Integer> graph = graphScenary2();
 		
+		int[][] g = graph.floyd();
 		
+		assertEquals(0, g[0][0]);
+		assertEquals(15, g[0][1]);
+		assertEquals(11, g[0][2]);
+		assertEquals(14, g[0][3]);
+		assertEquals(16, g[0][4]);
+		
+		assertEquals(15, g[1][0]);
+		assertEquals(0, g[1][1]);
+		assertEquals(6, g[1][2]);
+		assertEquals(3, g[1][3]);
+		assertEquals(1, g[1][4]);
+		
+		assertEquals(11, g[2][0]);
+		assertEquals(6, g[2][1]);
+		assertEquals(0, g[2][2]);
+		assertEquals(3, g[2][3]);
+		assertEquals(5, g[2][4]);
+		
+		assertEquals(14, g[3][0]);
+		assertEquals(3, g[3][1]);
+		assertEquals(3, g[3][2]);
+		assertEquals(0, g[3][3]);
+		assertEquals(2, g[3][4]);
+		
+		assertEquals(16, g[4][0]);
+		assertEquals(1, g[4][1]);
+		assertEquals(5, g[4][2]);
+		assertEquals(2, g[4][3]);
+		assertEquals(0, g[4][4]);
 	}
 	
 	
