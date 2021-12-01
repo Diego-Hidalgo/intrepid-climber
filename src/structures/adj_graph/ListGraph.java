@@ -56,10 +56,10 @@ public class ListGraph<E> implements GraphInterface<E> {
 	public void insert(E e, E v, int w) {
 		insert(e);
 		insert(v);
-		ListVertex<E> tV = getVertexByValue(e);
+		ListVertex<E> eV = getVertexByValue(e);
 		ListVertex<E> vV = getVertexByValue(v);
-		tV.link(vV, w);
-		vV.link(tV, w);
+		eV.link(vV, w);
+		vV.link(eV, w);
 	}
 
 	@Override
@@ -200,7 +200,21 @@ public class ListGraph<E> implements GraphInterface<E> {
 
 	@Override
 	public void floyd() {
-
+		int[][] dist = new int[size][size];
+		for(int i = 0; i < size; i ++)
+			for(int j = 0; j < size; j ++)
+				if(i != j)
+					dist[i][j] = weight(vertices.get(i), vertices.get(j));
+		for(int k = 0; k < size; k ++) {
+			for(int i = 0; i < size; i++) {
+				for(int j = 0; j < size; j++) {
+					if (dist[i][k] == Integer.MAX_VALUE || dist[k][j] == Integer.MAX_VALUE)
+						continue;
+					if (dist[i][j] > dist[i][k] + dist[k][j])
+						dist[i][j] = dist[i][k] + dist[k][j];
+				}
+			}
+		}
 	}
 
 	@Override
