@@ -139,7 +139,7 @@ public class MatrixGraph<E> implements GraphInterface<E> {
     }
 
     @Override
-    public void floyd() {
+    public int[][] floyd() {
         int[][] dist = matrix.clone();
         for(int k = 0; k < size; k ++) {
             for (int i = 0; i < size; i++) {
@@ -151,6 +151,7 @@ public class MatrixGraph<E> implements GraphInterface<E> {
                 }
             }
         }
+        return dist;
     }
 
     @Override

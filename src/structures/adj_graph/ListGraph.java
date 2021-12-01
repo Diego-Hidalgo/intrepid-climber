@@ -199,7 +199,7 @@ public class ListGraph<E> implements GraphInterface<E> {
 	}
 
 	@Override
-	public void floyd() {
+	public int[][] floyd() {
 		int[][] dist = new int[size][size];
 		for(int i = 0; i < size; i ++)
 			for(int j = 0; j < size; j ++)
@@ -215,6 +215,7 @@ public class ListGraph<E> implements GraphInterface<E> {
 				}
 			}
 		}
+		return dist;
 	}
 
 	@Override

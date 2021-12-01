@@ -28,7 +28,7 @@ public interface GraphInterface<E> {
 
 	List<ListVertex<E>> dijkstra(E e);
 
-	void floyd();
+	int[][] floyd();
 
 	void prim(E e);
 
