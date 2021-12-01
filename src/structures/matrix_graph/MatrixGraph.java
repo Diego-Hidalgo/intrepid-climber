@@ -168,7 +168,6 @@ public class MatrixGraph<E> implements GraphInterface<E> {
     @Override
     public List<ListVertex<E>> dijkstra(E e) {
 		return null;
-
     }
 
     @Override
@@ -188,8 +187,8 @@ public class MatrixGraph<E> implements GraphInterface<E> {
     }
 
     @Override
-    public void prim(E e) {
-
+    public int prim(E e) {
+        return 0;
     }
 
     private void makeSet(List<List<MatrixVertex<E>>> sets, MatrixVertex<E> v) {
@@ -214,17 +213,20 @@ public class MatrixGraph<E> implements GraphInterface<E> {
     }
 
     @Override
-    public void kruskal() {
+    public int kruskal() {
+        int total = 0;
         List<Edge<MatrixVertex<E>>> A = new ArrayList<>();
         List<List<MatrixVertex<E>>> sets = new ArrayList<>();
-        for(MatrixVertex<E> v : vertices)
+        for (MatrixVertex<E> v : vertices)
             makeSet(sets, v);
-        for(Edge<MatrixVertex<E>> edge : edges) {
-            if(findSet(sets, edge.u()) != findSet(sets, edge.v())) {
+        for (Edge<MatrixVertex<E>> edge : edges) {
+            if (findSet(sets, edge.u()) != findSet(sets, edge.v())) {
                 A.add(edge);
                 union(sets, edge.u(), edge.v());
+                total += edge.weight();
             }
         }
+        return total;
     }
 
     @Override

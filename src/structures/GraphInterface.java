@@ -33,8 +33,8 @@ public interface GraphInterface<E> {
 
 	int[][] floyd();
 
-	void prim(E e);
+	int prim(E e);
 
-	void kruskal();
+	int kruskal();
 
 }

@@ -2,6 +2,7 @@ package model;
 
 import structures.GraphInterface;
 import structures.adj_graph.ListGraph;
+import structures.matrix_graph.MatrixGraph;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,6 +13,11 @@ public class Mountain {
     private List<Integer> friends;
 
     public Mountain() {
+        landmarks = new ListGraph<>();
+        friends = new ArrayList<>();
+    }
+
+    public void clear() {
         landmarks = new ListGraph<>();
         friends = new ArrayList<>();
     }
@@ -31,14 +37,12 @@ public class Mountain {
     public void insertLandMarks(int[] array) {
         if(array.length != 3)
             return;
-        int A, B, C, up, down;
+        int A, B, C;
         A = array[0];
         B = array[1];
         C = array[2];
-        up = Integer.min(A, B);
-        down = Integer.max(A, B);
-        landmarks.insert(up, down, 0);
-        landmarks.insert(down, up, C);
+        landmarks.insert(B, A, C);
+        landmarks.insert(A, B, 0);
     }
 
     public void addFriends(int[] array) {
@@ -49,8 +53,34 @@ public class Mountain {
     }
 
     public int calcMinEnergy() {
+        GraphInterface<Integer> auxGraph = new ListGraph<>();
         int[][] m = landmarks.floyd();
+        int size = friends.size();
+        int i = 0;
+        while(i < size) {
+            for(int j = 1; j < size; j ++) {
+                int A, B, C;
+                A = friends.get(0);
+                B = friends.get(j);
+                C = m[landmarks.indexOf(A)][landmarks.indexOf(B)];
+                auxGraph.insert(A, B, C);
+            }
+            int removed = friends.remove(0);
+            friends.add(removed);
+            ++ i;
+        }
         return 0;
+    }
+
+    public void print(int[][] m, int size) {
+        String msg = "";
+        for(int i = 0; i < size; i ++) {
+            for(int j = 0; j < size; j ++) {
+                msg += m[i][j] + " ";
+            }
+            msg += "\n";
+        }
+        System.out.println(msg);
     }
 
 }

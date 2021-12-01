@@ -155,7 +155,6 @@ public class ListGraph<E> implements GraphInterface<E> {
 			for(ListVertex<E> v : u.getAdjacent()) {
 				if(v.getColor() == Color.WHITE) {
 					v.setColor(Color.GRAY);
-					v.setKey(u.getKey() + 1);
 					v.setPredecessor(u.value());
 					queue.add(v);
 				}
@@ -249,10 +248,11 @@ public class ListGraph<E> implements GraphInterface<E> {
 	}
 
 	@Override
-	public void prim(E e) {
+	public int prim(E e) {
+		int total = 0;
 		ListVertex<E> r = getVertexByValue(e);
 		if(r == null)
-			return;
+			return total;
 		initializeSingleSource(r);
 		PriorityQueue<ListVertex<E>> queue = new PriorityQueue<>(vertices);
 		while(!queue.isEmpty()) {
@@ -261,12 +261,14 @@ public class ListGraph<E> implements GraphInterface<E> {
 				if(v.getColor() == Color.WHITE && weight(u, v) < v.getKey()) {
 					queue.remove(v);
 					v.setKey(weight(u, v));
+					total += v.getKey();
 					v.setPredecessor(u.value());
 					queue.add(v);
 				}
 			}
 			u.setColor(Color.BLACK);
 		}
+		return total;
 	}
 
 	private void makeSet(List<List<ListVertex<E>>> sets, ListVertex<E> v) {
@@ -291,7 +293,8 @@ public class ListGraph<E> implements GraphInterface<E> {
 	}
 
 	@Override
-	public void kruskal() {
+	public int kruskal() {
+		int total = 0;
 		List<Edge<ListVertex<E>>> A = new ArrayList<>();
 		List<List<ListVertex<E>>> sets = new ArrayList<>();
 		for(ListVertex<E> v : vertices)
@@ -300,8 +303,10 @@ public class ListGraph<E> implements GraphInterface<E> {
 			if(findSet(sets, edge.u()) != findSet(sets, edge.v())) {
 				A.add(edge);
 				union(sets, edge.u(), edge.v());
+				total += edge.weight();
 			}
 		}
+		return total;
 	}
 
 	@Override
