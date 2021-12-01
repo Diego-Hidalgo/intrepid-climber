@@ -32,7 +32,7 @@ public class MatrixGraph<E> implements GraphInterface<E> {
     @Override
     public boolean contains(E e) {
         for(int i = 0; i < size; i ++) {
-            if(vertices.get(i).value() == e)
+            if(vertices.get(i).value().equals(e))
                 return true;
         }
         return false;
@@ -76,7 +76,7 @@ public class MatrixGraph<E> implements GraphInterface<E> {
     private MatrixVertex<E> getVertexByValue(E e) {
         for(int i = 0; i < size; i ++) {
             MatrixVertex<E> current = vertices.get(i);
-            if(current.value() == e)
+            if(current.value().equals(e))
                 return current;
         }
         return null;

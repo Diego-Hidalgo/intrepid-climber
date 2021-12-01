@@ -26,7 +26,7 @@ public class ListGraph<E> implements GraphInterface<E> {
 	@Override
 	public boolean contains(E e) {
 		for(int i = 0; i < size; i ++) {
-			if(vertices.get(i).value() == e)
+			if(vertices.get(i).value().equals(e))
 				return true;
 		}
 		return false;
@@ -49,7 +49,7 @@ public class ListGraph<E> implements GraphInterface<E> {
 	public ListVertex<E> getVertexByValue(E e) {
 		for(int i = 0; i < size; i ++) {
 			ListVertex<E> current = vertices.get(i);
-			if(current.value() == e)
+			if(current.value().equals(e))
 				return current;
 		}
 		return null;

@@ -13,12 +13,12 @@ public class Mountain {
     private List<Integer> friends;
 
     public Mountain() {
-        landmarks = new ListGraph<>();
+        landmarks = new MatrixGraph<>();
         friends = new ArrayList<>();
     }
 
     public void clear() {
-        landmarks = new ListGraph<>();
+        landmarks = new MatrixGraph<>();
         friends = new ArrayList<>();
     }
 
@@ -53,7 +53,7 @@ public class Mountain {
     }
 
     public int calcMinEnergy() {
-        GraphInterface<Integer> auxGraph = new ListGraph<>();
+        GraphInterface<Integer> auxGraph = new MatrixGraph<>();
         int[][] m = landmarks.floyd();
         int size = friends.size();
         int i = 0;
@@ -69,14 +69,17 @@ public class Mountain {
             friends.add(removed);
             ++ i;
         }
-        return 0;
+        return auxGraph.kruskal();
     }
 
-    public void print(int[][] m, int size) {
+    private void print(int[][] m, int size) {
         String msg = "";
         for(int i = 0; i < size; i ++) {
             for(int j = 0; j < size; j ++) {
-                msg += m[i][j] + " ";
+                if(m[i][j] == Integer.MAX_VALUE)
+                    msg += "∞ ";
+                else
+                    msg += m[i][j] + " ";
             }
             msg += "\n";
         }
