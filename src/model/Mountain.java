@@ -13,12 +13,12 @@ public class Mountain {
     private List<Integer> friends;
 
     public Mountain() {
-        landmarks = new MatrixGraph<>();
+        landmarks = new ListGraph<>();
         friends = new ArrayList<>();
     }
 
     public void clear() {
-        landmarks = new MatrixGraph<>();
+        landmarks = new ListGraph<>();
         friends = new ArrayList<>();
     }
 
@@ -53,7 +53,7 @@ public class Mountain {
     }
 
     public int calcMinEnergy() {
-        GraphInterface<Integer> auxGraph = new MatrixGraph<>();
+        GraphInterface<Integer> auxGraph = new ListGraph<>();
         int[][] m = landmarks.floyd();
         int size = friends.size();
         int i = 0;
@@ -69,7 +69,7 @@ public class Mountain {
             friends.add(removed);
             ++ i;
         }
-        return auxGraph.prim(friends.get(0));
+        return auxGraph.dijkstra(friends.get(0));
     }
 
     private void print(int[][] m, int size) {
