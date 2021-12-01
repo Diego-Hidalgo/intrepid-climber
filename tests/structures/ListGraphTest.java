@@ -8,7 +8,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import structures.adj_graph.ListGraph;
-import structures.adj_graph.ListVertex;
 
 public class ListGraphTest {
 
@@ -131,8 +130,6 @@ public class ListGraphTest {
 	@Test
 	public void testDijkstra() {
 		ListGraph<Integer> graph = graphScenary2();
-	
-		
 		
 	}
 	
