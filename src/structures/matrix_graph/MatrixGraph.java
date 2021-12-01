@@ -1,5 +1,6 @@
 package structures.matrix_graph;
 
+import structures.Edge;
 import structures.GraphInterface;
 import structures.adj_graph.ListVertex;
 import java.util.ArrayList;
@@ -10,14 +11,16 @@ public class MatrixGraph<E> implements GraphInterface<E> {
     private static final int INITIAL_CAPACITY = 10;
 
     private int size;
-    private List<MatrixVertex<E>> vertices;
     private int[][] matrix;
+    private List<MatrixVertex<E>> vertices;
+    private List<Edge<MatrixVertex<E>>> edges;
     private int capacity;
 
     public MatrixGraph() {
         size = 0;
-        vertices = new ArrayList<>();
         matrix = new int[INITIAL_CAPACITY][INITIAL_CAPACITY];
+        vertices = new ArrayList<>();
+        edges = new ArrayList<>();
         capacity = INITIAL_CAPACITY;
     }
 
@@ -79,13 +82,24 @@ public class MatrixGraph<E> implements GraphInterface<E> {
         return null;
     }
 
+    private void addEdgeSorted(Edge<MatrixVertex<E>> toAdd) {
+        int i = 0;
+        int edgesSize = edges.size();
+        while(i < edgesSize && toAdd.compareTo(edges.get(i)) > 0)
+            ++ i;
+        edges.add(i, toAdd);
+    }
+
     @Override
     public void insert(E e, E v, int w) {
         insert(e);
         insert(v);
-        int ePosition = getVertexByValue(e).getPosition();
-        int vPosition = getVertexByValue(v).getPosition();
+        MatrixVertex<E> eV = getVertexByValue(e);
+        MatrixVertex<E> vV = getVertexByValue(v);
+        int ePosition = eV.getPosition();
+        int vPosition = vV.getPosition();
         matrix[ePosition][vPosition] = w;
+        addEdgeSorted(new Edge<>(eV, vV, w));
     }
 
     @Override
@@ -94,11 +108,14 @@ public class MatrixGraph<E> implements GraphInterface<E> {
             return;
         insert(e);
         insert(adjacent);
-        int ePosition = getVertexByValue(e).getPosition();
+        MatrixVertex<E> eV = getVertexByValue(e);
+        int ePosition = eV.getPosition();
         for(int i = 0; i < adjacent.size(); i ++) {
-            int adjPosition = getVertexByValue(adjacent.get(i)).getPosition();
+            MatrixVertex<E> vV = getVertexByValue(adjacent.get(i));
+            int adjPosition = vV.getPosition();
             int w = weights.get(i);
             matrix[ePosition][adjPosition] = w;
+            addEdgeSorted(new Edge<>(eV, vV, w));
         }
     }
 

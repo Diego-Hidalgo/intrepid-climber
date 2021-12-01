@@ -1,16 +1,19 @@
 package structures.adj_graph;
 
+import structures.Edge;
 import structures.GraphInterface;
 import java.util.*;
 
 public class ListGraph<E> implements GraphInterface<E> {
 
 	private List<ListVertex<E>> vertices;
+	private List<Edge<ListVertex<E>>> edges;
 	private int size;
 	private int time;
 
 	public ListGraph() {
 		vertices = new ArrayList<>();
+		edges = new ArrayList<>();
 		size = 0;
 		time = 0;
 	}
@@ -52,6 +55,14 @@ public class ListGraph<E> implements GraphInterface<E> {
 		return null;
 	}
 
+	private void addEdgeSorted(Edge<ListVertex<E>> toAdd) {
+		int i = 0;
+		int edgesSize = edges.size();
+		while(i < edgesSize && toAdd.compareTo(edges.get(i)) > 0)
+			++ i;
+		edges.add(i, toAdd);
+	}
+
 	@Override
 	public void insert(E e, E v, int w) {
 		insert(e);
@@ -59,6 +70,7 @@ public class ListGraph<E> implements GraphInterface<E> {
 		ListVertex<E> eV = getVertexByValue(e);
 		ListVertex<E> vV = getVertexByValue(v);
 		eV.link(vV, w);
+		addEdgeSorted(new Edge<>(eV, vV, w));
 	}
 
 	@Override
@@ -72,6 +84,7 @@ public class ListGraph<E> implements GraphInterface<E> {
 			ListVertex<E> v = getVertexByValue(adjacent.get(i));
 			int w = weights.get(i);
 			u.link(v, w);
+			addEdgeSorted(new Edge<>(u, v, w));
 		}
 	}
 
