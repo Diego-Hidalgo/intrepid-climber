@@ -195,7 +195,6 @@ public class ListGraph<E> implements GraphInterface<E> {
 			for(ListVertex<E> v : u.getAdjacent())
 				relax(u, v);
 		}
-		
 		return shortest;
 	}
 
