@@ -59,7 +59,6 @@ public class ListGraph<E> implements GraphInterface<E> {
 		ListVertex<E> eV = getVertexByValue(e);
 		ListVertex<E> vV = getVertexByValue(v);
 		eV.link(vV, w);
-		vV.link(eV, w);
 	}
 
 	@Override
@@ -73,7 +72,6 @@ public class ListGraph<E> implements GraphInterface<E> {
 			ListVertex<E> v = getVertexByValue(adjacent.get(i));
 			int w = weights.get(i);
 			u.link(v, w);
-			v.link(u, w);
 		}
 	}
 

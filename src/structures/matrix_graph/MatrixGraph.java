@@ -86,7 +86,6 @@ public class MatrixGraph<E> implements GraphInterface<E> {
         int ePosition = getVertexByValue(e).getPosition();
         int vPosition = getVertexByValue(v).getPosition();
         matrix[ePosition][vPosition] = w;
-        matrix[vPosition][ePosition] = w;
     }
 
     @Override
@@ -100,7 +99,6 @@ public class MatrixGraph<E> implements GraphInterface<E> {
             int adjPosition = getVertexByValue(adjacent.get(i)).getPosition();
             int w = weights.get(i);
             matrix[ePosition][adjPosition] = w;
-            matrix[adjPosition][ePosition] = w;
         }
     }
 
