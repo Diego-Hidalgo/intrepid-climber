@@ -131,6 +131,14 @@ public class MatrixGraph<E> implements GraphInterface<E> {
     }
 
     @Override
+    public void clear() {
+        size = 0;
+        vertices = new ArrayList<>();
+        matrix = new int[INITIAL_CAPACITY][INITIAL_CAPACITY];
+        capacity = INITIAL_CAPACITY;
+    }
+
+    @Override
     public void bfs(E e) {
 
     }

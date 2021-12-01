@@ -116,6 +116,13 @@ public class ListGraph<E> implements GraphInterface<E> {
 	}
 
 	@Override
+	public void clear() {
+		vertices = new ArrayList<>();
+		size = 0;
+		time = 0;
+	}
+
+	@Override
 	public void bfs(E e) {
 		ListVertex<E> s = getVertexByValue(e);
 		if(s == null)

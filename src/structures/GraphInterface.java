@@ -23,6 +23,8 @@ public interface GraphInterface<E> {
 
 	int indexOf(E e);
 
+	void clear();
+
 	void bfs(E e);
 
 	void dfs();
