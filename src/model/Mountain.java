@@ -22,6 +22,11 @@ public class Mountain {
         return parsed;
     }
 
+    public void insertLandMarks(int N) {
+        for(int i = 1; i <= N; i ++)
+            landmarks.insert(i);
+    }
+
     public void insertLandMarks(int[] content) {
         if(content.length != 3)
             return;
