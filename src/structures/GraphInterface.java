@@ -1,7 +1,6 @@
 package structures;
 
 import java.util.List;
-
 import structures.adj_graph.ListVertex;
 
 public interface GraphInterface<E> {
@@ -21,6 +20,8 @@ public interface GraphInterface<E> {
 	void remove(E e);
 
 	int weight(E u, E v);
+
+	int indexOf(E e);
 
 	void bfs(E e);
 

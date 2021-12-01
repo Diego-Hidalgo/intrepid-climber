@@ -96,14 +96,25 @@ public class ListGraph<E> implements GraphInterface<E> {
 
 	@Override
 	public int weight(E u, E v) {
-		if(!contains(u) || !contains(v))
+		ListVertex<E> uV = getVertexByValue(u);
+		ListVertex<E> vV = getVertexByValue(v);
+		if(uV == null || vV == null)
 			return Integer.MAX_VALUE;
 		else
-			return weight(getVertexByValue(u), getVertexByValue(v));
+			return weight(uV, vV);
 	}
 
 	private int weight(ListVertex<E> u, ListVertex<E> v) {
 		return u.weight(v);
+	}
+
+	@Override
+	public int indexOf(E e) {
+		ListVertex<E> eV = getVertexByValue(e);
+		if(eV == null)
+			return -1;
+		else
+			return vertices.indexOf(eV);
 	}
 
 	@Override

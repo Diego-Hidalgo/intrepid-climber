@@ -2,7 +2,6 @@ package structures.matrix_graph;
 
 import structures.GraphInterface;
 import structures.adj_graph.ListVertex;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,14 +111,25 @@ public class MatrixGraph<E> implements GraphInterface<E> {
 
     @Override
     public int weight(E u, E v) {
-        if(!contains(u) || !contains(v))
+        MatrixVertex<E> uV = getVertexByValue(u);
+        MatrixVertex<E> vV = getVertexByValue(v);
+        if(uV == null || vV == null)
             return Integer.MAX_VALUE;
         else
-            return weight(getVertexByValue(u), getVertexByValue(v));
+            return weight(uV, vV);
     }
 
     private int weight(MatrixVertex<E> u, MatrixVertex<E> v) {
         return matrix[u.getPosition()][v.getPosition()];
+    }
+
+    @Override
+    public int indexOf(E e) {
+        MatrixVertex<E> eV = getVertexByValue(e);
+        if(eV == null)
+            return -1;
+        else
+            return eV.getPosition();
     }
 
     @Override
