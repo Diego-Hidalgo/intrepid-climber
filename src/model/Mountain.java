@@ -3,6 +3,7 @@ package model;
 import structures.GraphInterface;
 import structures.adj_graph.ListGraph;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Mountain {
@@ -27,23 +28,28 @@ public class Mountain {
             landmarks.insert(i);
     }
 
-    public void insertLandMarks(int[] content) {
-        if(content.length != 3)
+    public void insertLandMarks(int[] array) {
+        if(array.length != 3)
             return;
-        int A, B, C;
-        A = content[0];
-        B = content[1];
-        C = content[2];
-        landmarks.insert(A, B, C);
+        int A, B, C, up, down;
+        A = array[0];
+        B = array[1];
+        C = array[2];
+        up = Integer.min(A, B);
+        down = Integer.max(A, B);
+        landmarks.insert(up, down, 0);
+        landmarks.insert(down, up, C);
     }
 
-    public void addFriends(int[] content) {
-        if(content.length >= landmarks.size())
+    public void addFriends(int[] array) {
+        if(array.length >= landmarks.size())
             return;
-        for(int j : content) friends.add(j);
+        for(int j : array) friends.add(j);
+        Collections.sort(friends);
     }
 
     public int calcMinEnergy() {
+        int[][] m = landmarks.floyd();
         return 0;
     }
 
