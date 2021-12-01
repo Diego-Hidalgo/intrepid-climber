@@ -192,9 +192,39 @@ public class MatrixGraph<E> implements GraphInterface<E> {
 
     }
 
+    private void makeSet(List<List<MatrixVertex<E>>> sets, MatrixVertex<E> v) {
+        List<MatrixVertex<E>> set = new ArrayList<>();
+        set.add(v);
+        sets.add(set);
+    }
+
+    private int findSet(List<List<MatrixVertex<E>>> sets, MatrixVertex<E> v) {
+        for(int i = 0; i < sets.size(); i ++) {
+            if(sets.get(i).contains(v))
+                return i;
+        }
+        return -1;
+    }
+
+    private void union(List<List<MatrixVertex<E>>> sets, MatrixVertex<E> u, MatrixVertex<E> v) {
+        int vi = findSet(sets, v);
+        List<MatrixVertex<E>> removed = sets.remove(vi);
+        int ui = findSet(sets, u);
+        sets.get(ui).addAll(removed);
+    }
+
     @Override
     public void kruskal() {
-
+        List<Edge<MatrixVertex<E>>> A = new ArrayList<>();
+        List<List<MatrixVertex<E>>> sets = new ArrayList<>();
+        for(MatrixVertex<E> v : vertices)
+            makeSet(sets, v);
+        for(Edge<MatrixVertex<E>> edge : edges) {
+            if(findSet(sets, edge.u()) != findSet(sets, edge.v())) {
+                A.add(edge);
+                union(sets, edge.u(), edge.v());
+            }
+        }
     }
 
     @Override

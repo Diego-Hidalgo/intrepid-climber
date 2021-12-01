@@ -131,6 +131,7 @@ public class ListGraph<E> implements GraphInterface<E> {
 	@Override
 	public void clear() {
 		vertices = new ArrayList<>();
+		edges = new ArrayList<>();
 		size = 0;
 		time = 0;
 	}
@@ -268,9 +269,39 @@ public class ListGraph<E> implements GraphInterface<E> {
 		}
 	}
 
+	private void makeSet(List<List<ListVertex<E>>> sets, ListVertex<E> v) {
+		List<ListVertex<E>> set = new ArrayList<>();
+		set.add(v);
+		sets.add(set);
+	}
+
+	private int findSet(List<List<ListVertex<E>>> sets, ListVertex<E> v) {
+		for(int i = 0; i < sets.size(); i ++) {
+			if(sets.get(i).contains(v))
+				return i;
+		}
+		return -1;
+	}
+
+	private void union(List<List<ListVertex<E>>> sets, ListVertex<E> u, ListVertex<E> v) {
+		int vi = findSet(sets, v);
+		List<ListVertex<E>> removed = sets.remove(vi);
+		int ui = findSet(sets, u);
+		sets.get(ui).addAll(removed);
+	}
+
 	@Override
 	public void kruskal() {
-
+		List<Edge<ListVertex<E>>> A = new ArrayList<>();
+		List<List<ListVertex<E>>> sets = new ArrayList<>();
+		for(ListVertex<E> v : vertices)
+			makeSet(sets, v);
+		for(Edge<ListVertex<E>> edge : edges) {
+			if(findSet(sets, edge.u()) != findSet(sets, edge.v())) {
+				A.add(edge);
+				union(sets, edge.u(), edge.v());
+			}
+		}
 	}
 
 	@Override
