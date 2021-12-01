@@ -69,7 +69,7 @@ public class Mountain {
             friends.add(removed);
             ++ i;
         }
-        return auxGraph.kruskal();
+        return auxGraph.prim(friends.get(0));
     }
 
     private void print(int[][] m, int size) {

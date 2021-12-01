@@ -2,7 +2,6 @@ package structures.matrix_graph;
 
 import structures.Edge;
 import structures.GraphInterface;
-import structures.adj_graph.ListVertex;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -166,8 +165,8 @@ public class MatrixGraph<E> implements GraphInterface<E> {
     }
 
     @Override
-    public List<ListVertex<E>> dijkstra(E e) {
-		return null;
+    public int dijkstra(E e) {
+		return -1;
     }
 
     @Override
@@ -219,6 +218,7 @@ public class MatrixGraph<E> implements GraphInterface<E> {
         List<List<MatrixVertex<E>>> sets = new ArrayList<>();
         for (MatrixVertex<E> v : vertices)
             makeSet(sets, v);
+        MatrixVertex<E> vPrev = null;
         for (Edge<MatrixVertex<E>> edge : edges) {
             if (findSet(sets, edge.u()) != findSet(sets, edge.v())) {
                 A.add(edge);

@@ -1,7 +1,6 @@
 package structures;
 
 import java.util.List;
-import structures.adj_graph.ListVertex;
 
 public interface GraphInterface<E> {
 
@@ -29,7 +28,7 @@ public interface GraphInterface<E> {
 
 	void dfs();
 
-	List<ListVertex<E>> dijkstra(E e);
+	int dijkstra(E e);
 
 	int[][] floyd();
 
