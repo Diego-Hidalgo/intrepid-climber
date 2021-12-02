@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <Pane prefHeight="260.0" prefWidth="430.0" BorderPane.alignment="CENTER">
+            <children>
+                <VBox alignment="CENTER" layoutX="18.0" layoutY="67.0" prefHeight="67.0" prefWidth="394.0">
+                    <children>
+                        <HBox alignment="CENTER" prefHeight="37.0" prefWidth="490.0">
+                            <children>
+                                <Label text="Ruta del archivo:">
+                                    <font>
+                                        <Font name="System Bold" size="14.0" />
+                                    </font></Label>
+                                <Pane prefHeight="36.0" prefWidth="18.0" />
+                                <TextField fx:id="filePathTxt" editable="false" prefHeight="25.0" prefWidth="182.0" />
+                                <Button mnemonicParsing="false" onAction="#chooseFilePath" text="...">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+                <Label layoutX="123.0" layoutY="24.0" text="Importar Información">
+                    <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                    </font>
+                </Label>
+                <Button layoutX="168.0" layoutY="186.0" mnemonicParsing="false" onAction="#importData" text="IMPORTAR">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Button>
+                    <TextField fx:id="savePathTxt" editable="false" layoutX="175.0" layoutY="130.0" prefHeight="25.0" prefWidth="182.0" />
+                    <Label layoutX="39.0" layoutY="133.0" prefHeight="20.0" prefWidth="128.0" text="Ruta de guardado:">
+                        <font>
+                            <Font name="System Bold" size="14.0" />
+                        </font>
+            </Label>
+                    <Button layoutX="357.0" layoutY="128.0" mnemonicParsing="false" onAction="#chooseSavePath" text="...">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Button>
+            </children>
+        </Pane>
+    </top>
+</BorderPane>

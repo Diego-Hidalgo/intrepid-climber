@@ -65,7 +65,7 @@
                </children></HBox>
             <HBox alignment="CENTER" prefHeight="53.0" prefWidth="328.0">
                <children>
-                  <Button mnemonicParsing="false" text="Importar">
+                  <Button mnemonicParsing="false" onAction="#showImportWindow" text="Importar">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

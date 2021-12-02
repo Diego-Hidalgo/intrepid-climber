@@ -2,14 +2,22 @@ package ui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.Mountain;
 import java.io.IOException;
 
 
 public class MainWindowController {
 
+    private final String FOLDER = "fxml/";
+
     private Mountain mountain;
+    private EmergentWindowController EWC;
 
     @FXML
     private TextField NTxt;
@@ -27,6 +35,7 @@ public class MainWindowController {
 
     public MainWindowController(Mountain mountain) {
         this.mountain = mountain;
+        EWC = new EmergentWindowController(mountain);
     }
 
     @FXML
@@ -56,7 +65,7 @@ public class MainWindowController {
 
     @FXML
     public void showImportWindow(ActionEvent e) throws IOException {
-
+        EWC.showWindow();
     }
 
     @FXML
