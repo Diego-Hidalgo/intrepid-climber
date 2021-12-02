@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import structures.adj_graph.ListGraph;
 import structures.matrix_graph.MatrixGraph;
 
 public class MatrixGraphTest {
