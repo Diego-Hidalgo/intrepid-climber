@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import structures.adj_graph.Color;
 import structures.adj_graph.ListGraph;
 
 public class ListGraphTest {
@@ -112,25 +113,30 @@ public class ListGraphTest {
 		
 		graph.bfs(1);
 		
-		assertEquals(0,graph.getVertexByValue(1).getKey());
-		assertEquals(1,graph.getVertexByValue(2).getKey());
-		assertEquals(1,graph.getVertexByValue(3).getKey());
-		assertEquals(2,graph.getVertexByValue(4).getKey());
-		assertEquals(2,graph.getVertexByValue(5).getKey());
+		assertEquals(Color.BLACK,graph.getVertexByValue(1).getColor());
+		assertEquals(Color.BLACK,graph.getVertexByValue(2).getColor());
+		assertEquals(Color.BLACK,graph.getVertexByValue(3).getColor());
+		assertEquals(Color.BLACK,graph.getVertexByValue(4).getColor());
+		assertEquals(Color.BLACK,graph.getVertexByValue(5).getColor());
 	}
 	
-	/*@Test
+	@Test
 	public void testDfs() {
-		ListGraph<Integer> adj_graph = graphScenary1();
+		ListGraph<Integer> graph = graphScenary1();
 		
-		adj_graph.dfs();
-		
-	}*/
+		graph.dfs();
+		assertEquals(Color.BLACK,graph.getVertexByValue(1).getColor());
+		assertEquals(Color.BLACK,graph.getVertexByValue(2).getColor());
+		assertEquals(Color.BLACK,graph.getVertexByValue(3).getColor());
+		assertEquals(Color.BLACK,graph.getVertexByValue(4).getColor());
+		assertEquals(Color.BLACK,graph.getVertexByValue(5).getColor());
+	}
 	
 	@Test
 	public void testDijkstra() {
 		ListGraph<Integer> graph = graphScenary2();
 		
+		assertEquals(56, graph.dijkstra(1));
 	}
 	
 	@Test
@@ -171,6 +177,7 @@ public class ListGraphTest {
 	public void testKruskal() {
 		ListGraph<Integer> graph = graphScenary2();
 		
+		assertEquals(17,graph.kruskal());
 		
 	}
 }
