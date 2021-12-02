@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="487.0" prefWidth="443.0" xmlns="http://javafx.com/javafx/8.0.281" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="58.0" layoutY="28.0" prefHeight="430.0" prefWidth="328.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="52.0" prefWidth="328.0">
+               <children>
+                  <Label text="Intrepid Climber">
+                     <font>
+                        <Font name="System Bold Italic" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="328.0">
+               <children>
+                  <Label prefHeight="20.0" prefWidth="186.0" text="Cantidad de landmarks:">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="NTxt" alignment="CENTER" prefHeight="25.0" prefWidth="88.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="31.0" prefWidth="328.0">
+               <children>
+                  <Label fx:id="warningLbl" prefHeight="20.0" prefWidth="278.0" text="La cantidad debe ser un número positivo" textFill="#ff0202">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="29.0" prefWidth="328.0">
+               <children>
+                  <Label text="Conexiones">
+                     <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="219.0" prefWidth="328.0">
+               <children>
+                  <TextArea fx:id="contentTxt" prefHeight="219.0" prefWidth="131.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextArea>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="53.0" prefWidth="328.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Importar">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Pane prefHeight="54.0" prefWidth="151.0" />
+                  <Button fx:id="calcBtn" mnemonicParsing="false" text="Calcular">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</Pane>
