@@ -3,6 +3,7 @@ package model;
 import structures.GraphInterface;
 import structures.adj_graph.ListGraph;
 import structures.matrix_graph.MatrixGraph;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -52,8 +53,37 @@ public class Mountain {
         Collections.sort(friends);
     }
 
+    /*
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("data_test.txt"));
+        File f = new File("output.txt");
+        if(!f.exists())
+            f.createNewFile();
+        PrintWriter pw = new PrintWriter(f);
+        Mountain m = new Mountain();
+        String line;
+        while((line = br.readLine()) != null) {
+            int N = Integer.parseInt(line.split(" ")[0]);
+            m.insertLandMarks(N);
+            int[] content;
+            for (int i = 0; i < N - 1; i++) {
+                content = m.parseStringArray(br.readLine().split(" "));
+                m.insertLandMarks(content);
+            }
+            content = m.parseStringArray(br.readLine().split(" "));
+            m.addFriends(content);
+            int a = m.calcMinEnergy();
+            pw.write(a + "\n");
+            m.clear();
+            pw.flush();
+        }
+        pw.close();
+        br.close();
+    }
+     */
+
     public int calcMinEnergy() {
-        GraphInterface<Integer> auxGraph = new ListGraph<>();
+        ListGraph<Integer> auxGraph = new ListGraph<>();
         int[][] m = landmarks.floyd();
         int size = friends.size();
         int i = 0;
@@ -69,7 +99,7 @@ public class Mountain {
             friends.add(removed);
             ++ i;
         }
-        return auxGraph.dijkstra(friends.get(0));
+        return auxGraph.kruskal();
     }
 
     private void print(int[][] m, int size) {
