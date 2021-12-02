@@ -62,4 +62,11 @@ public class MountainTest {
 		 assertFalse(friends.contains(2));
 		 
 	}
+	
+	@Test
+	public void CalcMinEnergy() {
+		Mountain m = setupScenary1();
+		
+		assertEquals(2, m.calcMinEnergy());
+	}
 }
