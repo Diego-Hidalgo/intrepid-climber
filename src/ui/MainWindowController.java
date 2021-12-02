@@ -2,10 +2,7 @@ package ui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import model.Mountain;
 import java.io.IOException;
 
@@ -22,14 +19,39 @@ public class MainWindowController {
     private TextArea contentTxt;
     @FXML
     private Button calcBtn;
+    @FXML
+    private TextField friendsTxt;
+    private int N;
+    private String[] contentArray;
+    private String[] friendsArray;
 
     public MainWindowController(Mountain mountain) {
         this.mountain = mountain;
     }
 
     @FXML
-    public void calcEnergyNeeded(ActionEvent e) {
+    public void calcEnergy() {
+        contentArray = contentTxt.getText().split("\n");
+        friendsArray = friendsTxt.getText().split(" ");
+        mountain.insertLandMarks(N);
+        for(int i = 0; i < contentArray.length; i ++)
+            mountain.insertLandMarks(mountain.parseStringArray(contentArray[i].split(" ")));
+        mountain.addFriends(mountain.parseStringArray(friendsArray));
+        int energy = mountain.calcMinEnergy();
+        showAlert("La energía requrida es de " + energy, null, null);
+        mountain.clear();
+        config();
+        contentTxt.clear();
+        friendsTxt.clear();
+        NTxt.clear();
+    }
 
+    private void showAlert(String msg, String header, String title) {
+        Alert feedback = new Alert(Alert.AlertType.INFORMATION);
+        feedback.setTitle(title);
+        feedback.setHeaderText(header);
+        feedback.setContentText(msg);
+        feedback.showAndWait();
     }
 
     @FXML
@@ -38,8 +60,23 @@ public class MainWindowController {
     }
 
     @FXML
-    public void setWarningLbl(ActionEvent e) {
-
+    public void validateLandMarks() {
+        try {
+            N = Integer.parseInt(NTxt.getText());
+            if(N < 2) {
+                warningLbl.setVisible(true);
+                warningLbl.setText("La entrada de be ser un número mayor a 1");
+                calcBtn.setDisable(true);
+                return;
+            }
+            calcBtn.setDisable(false);
+            warningLbl.setVisible(false);
+            contentTxt.setDisable(false);
+        } catch(NumberFormatException e) {
+            warningLbl.setVisible(true);
+            warningLbl.setText("La entrada de be ser un número mayor a 1");
+            calcBtn.setDisable(true);
+        }
     }
 
     public void config() {
